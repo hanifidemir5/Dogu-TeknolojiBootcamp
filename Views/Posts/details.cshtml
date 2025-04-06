@@ -1,0 +1,28 @@
+@model Post
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="bg-white p-4">
+                <h1 class="h4 mb-4">@Model.Title</h1>
+                <div class="tags">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <a href="#" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">@tag.Text</a>
+                    }
+                </div>
+                <img src="~/img/@Model.Image" alt="" style="height: 400px; width: 600px;object-fit: contain;" class="img-fluid rounded">
+                <div>@Model.Content</div>
+            </div>
+        </div>
+        <div class="col-lg-4 ">
+        <vc:tags-menu></vc:tags-menu>
+        <vc:new-posts></vc:new-posts>
+        </div>
+    </div>
+}
+else
+{
+    <p>Post not found.</p>
+}
