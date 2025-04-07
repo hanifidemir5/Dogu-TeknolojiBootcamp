@@ -1,0 +1,37 @@
+@section styles{
+    <link rel="stylesheet" href="~/css/Post/index.css">
+}
+
+<div class="post-main-container">
+    <div class="content-container">
+        <h1 class="align-self-start p-2 mb-4">Popular Posts</h1>
+        <div class="post-content">
+        @foreach(var post in Model.Posts)
+        {
+            <div class="post-card">
+                <div class="post-image-container">
+                    <img src="~/img/@post.Image" alt="">
+                </div>  
+                <div class="post-body">
+                    <h5><a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="btn-link fw-bold">@post.Title</a></h5>
+                    <p>@post.Content</p>
+                    <a href="#" class="category badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">web programlama</a>
+                </div>
+            </div>
+        }
+        </div>
+
+        <nav>
+            <ul class="pagination">
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="side-content">
+        <vc:tags-menu></vc:tags-menu>
+        <vc:new-posts></vc:new-posts>
+    </div>
+</div>

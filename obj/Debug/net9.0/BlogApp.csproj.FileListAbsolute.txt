@@ -2296,3 +2296,5 @@ C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\n
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\2h1vk5otyt-wgi0q5jg0p.gz
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\oxkcu2ox4a-bqu073oqgt.gz
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\w2bw8qccko-62oa6jd45k.gz
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\BlogApp.sourcelink.json
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\luixcmj0e2-1nsfgz3s8s.gz

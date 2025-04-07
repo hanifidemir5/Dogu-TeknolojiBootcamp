@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\css\\Post\\index.css",
+      "PackagePath": "staticwebassets\\css\\Post\\index.css"
+    },
+    {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },

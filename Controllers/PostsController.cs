@@ -10,7 +10,7 @@ namespace BlogApp.Controllers{
             _postRepository = postRepository;
         }
         public IActionResult Index(){
-            return View(new PostViewModel{
+            return View("Index/index",new PostViewModel{
                 Posts = _postRepository.Posts.ToList(),
             });
         }
