@@ -20,12 +20,28 @@ namespace BlogApp.Controllers{
             if(!string.IsNullOrEmpty(tag)){
                 posts = posts.Where(x=>x.Tags.Any(t=>t.Url == tag));
             }
-            return View(new PostViewModel{Posts = await posts.ToListAsync()});
+            return View("Index/index",new PostViewModel{Posts = await posts.ToListAsync()});
          }
 
-        public async Task<IActionResult> Details(string url)
-            {
-                return View(await _postRepository.Posts.Include(x=>x.Tags).Include(x=>x.Comments).ThenInclude(x=>x.User).FirstOrDefaultAsync(p=>p.Url == url));
-            }
+        public async Task<IActionResult> Details(string url){
+            return View(await _postRepository.Posts.Include(x=>x.Tags).Include(x=>x.Comments).ThenInclude(x=>x.User).FirstOrDefaultAsync(p=>p.Url == url));
         }
+        
+        [HttpPost]
+        public JsonResult AddComment(int PostId, string UserName, string Text){
+            var entity = new Comment{
+                Text = Text,
+                PublishedOn = DateTime.Now,
+                PostId = PostId,
+                User = new User {UserName = UserName, Image = "p1.png"}
+            };
+            _commentRepository.CreateComment(entity);
+            return Json(new {
+                UserName,
+                Text,
+                entity.PublishedOn,
+                entity.User.Image
+            });
+        }
+    }
 };
