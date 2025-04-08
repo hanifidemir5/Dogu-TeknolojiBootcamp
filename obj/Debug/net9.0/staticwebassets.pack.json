@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\img\\3.jpg"
     },
     {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\p1.png",
+      "PackagePath": "staticwebassets\\img\\p1.png"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\p2.png",
+      "PackagePath": "staticwebassets\\img\\p2.png"
+    },
+    {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",
       "PackagePath": "staticwebassets\\lib\\bootstrap-icons\\bootstrap-icons.svg"
     },
