@@ -31,24 +31,24 @@
                             </div>
                         }
                     </div>
-                    <hr class="my-4">
-                    <div>
-                        <h5 class="mb3">Yorum Ekle</h5>
-                        <form action="/post/AddComment" method="post">
-                            <input type="hidden" name="postId" name="postId" value="@Model.PostId" />
-                            <div class="mb-3">
-                                <label for="UserName">UserName</label>
-                                <input type="text" class="form-control" name="userName" id="userName">
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text" class="form-label"></label>
-                                <textarea type="text" class="form-control" name="Text" id="Text" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <button type="submit" id="btnYorumKayit" class="btn btn-primary">Yorum Yap</button>
-                            </div>
-                        </form>
-                    </div>
+                    @if(User.Identity!.IsAuthenticated){
+                        <hr class="my-4">
+                        <div>
+                            <h5 class="mb3">Yorum Ekle</h5>
+                            <form action="/post/AddComment" id="commentForm" method="post">
+                                <input type="hidden" name="PostId" value="@Model.PostId" />
+                                <div class="mb-3">
+                                    <label for="Text" class="form-label">Yorum</label>
+                                    <textarea class="form-control" name="Text" id="Text" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" id="btnYorumKayit" class="btn btn-primary">Yorum Yap</button>
+                                </div>
+                            </form>
+                        </div>
+                    }else{
+                        <p>Yorum için uygulamaya giriş yapmalısız <a href="/users/login">Login</a></p>
+                    }
                 </div>
             </div>
         </div>
@@ -70,8 +70,7 @@
                     url: '@Url.Action("AddComment")',
                     dataType: 'json',
                     data: {
-                        PostId: $('#PostId').val(),
-                        UserName: $('#UserName').val(),
+                        PostId: $('input[name="PostId"]').val(),
                         Text: $('#Text').val(),
                     },
                     success: function (yorum) {
@@ -79,16 +78,15 @@
 
                         $("#comments").append(`
                             <div class="my-4 d-flex">
-                                <img src="~/img/${yorum.image}" class="avatar rounded-circle float-start me-3" alt="">
+                                <img src="~/img/${yorum.avatar}" class="avatar rounded-circle float-start me-3" alt="">
                             <div class="mb-2">
-                            <h6>${yorum.userName}</h6>
+                            <h6>${yorum.username}</h6>
                             <span>${date.toLocaleDateString()}</span>
                             <p>${yorum.Text}</p>
                             </div>
                             </div>
                             `);
                             
-                            $("#UserName").val('');
                             $("#Text").val('');
 
                             var adet = parseInt($("#commentCount").text());
