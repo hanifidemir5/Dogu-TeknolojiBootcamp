@@ -1,8 +1,11 @@
 .side-content {
-  width: 30%;
-  margin: 8em 3em;
+  width: 20%;
+  margin: 7rem 2rem;
   word-break: break-word;
   line-height: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .post-main-container {
@@ -12,7 +15,6 @@
 .content-container {
   flex-grow: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
   width: 70%;
@@ -26,6 +28,7 @@
   align-items: center;
   flex-wrap: wrap;
   margin: 1rem;
+  width: 100%;
 }
 
 .post-card {
@@ -39,6 +42,26 @@
   overflow: hidden;
   position: relative;
   min-width: 150px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+}
+
+.post-card:hover {
+  scale: 1.02;
+}
+
+.post-link {
+  color: #0d6efd;
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+}
+
+.post-desc {
+  font-size: 0.75rem;
+}
+
+.post-link:hover {
+  color: black;
 }
 
 .post-body {
