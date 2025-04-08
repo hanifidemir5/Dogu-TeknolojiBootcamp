@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BlogApp.Entity;
+using System;
 namespace BlogApp.Data.Concrete.EfCore{
 
     public static class SeedData{
@@ -21,6 +22,7 @@ namespace BlogApp.Data.Concrete.EfCore{
                 );
                 context.SaveChanges();
             }
+            var tags = context.Tags.ToList();
             if(!context.Users.Any()){
                 context.Users.AddRange(
                     new User {UserName = "ahmetkaya",Image = "p1.jpg", Name = "Ahmet Kaya", Email = "info@ahmetkaya.com",Password="123456"},
@@ -37,11 +39,11 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "1.png",
                         PublishedOn = DateTime.Now.AddDays(-10),
-                        Tags = context.Tags.Take(3).ToList(),
+                        Tags = tags.Take(3).ToList(),
                         UserId = 1,
                         Comments = new List<Comment>{
-                            new Comment {Text = "Başarılı bir şekilde başlamadı",PublishedOn = new DateTime(),UserId =2},
-                            new Comment {Text = "Başarılı bir şekilde başladı",PublishedOn = new DateTime(),UserId =1},
+                            new Comment {Text = "Başarılı bir şekilde başlamadı",PublishedOn = DateTime.Now,UserId =2},
+                            new Comment {Text = "Başarılı bir şekilde başladı",PublishedOn = DateTime.Now,UserId =1},
                         }
                     },
                     new Post{
@@ -51,7 +53,7 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "2.jpeg",
                         PublishedOn = DateTime.Now.AddDays(-20),
-                        Tags = context.Tags.Take(2).ToList(),
+                        Tags = tags.Take(2).ToList(),
                         UserId = 1
                     },
                     new Post{
@@ -61,7 +63,7 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "3.jpg",
                         PublishedOn = DateTime.Now.AddDays(-25),
-                        Tags = context.Tags.Take(4).ToList(),
+                        Tags = tags.Take(4).ToList(),
                         UserId = 2
                     }
                 );
