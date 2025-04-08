@@ -1,36 +1,31 @@
 using BlogApp.Data.Abstract;
 using BlogApp.Models;
+using BlogApp.Entity;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers{
     public class PostsController : Controller{
         private IPostRepository _postRepository;
-        public PostsController(IPostRepository postRepository){
+        private ICommentRepository _commentRepository;
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository){
             _postRepository = postRepository;
+            _commentRepository = commentRepository;
         }
-        public IActionResult Index(){
-            return View("Index/index",new PostViewModel{
-                Posts = _postRepository.Posts.ToList(),
-            });
-        }
+        public async Task<IActionResult> Index(string tag){
+            var claims = User.Claims;
+            var posts = _postRepository.Posts;
 
-        public async Task<IActionResult> Details(int? id)
+            if(!string.IsNullOrEmpty(tag)){
+                posts = posts.Where(x=>x.Tags.Any(t=>t.Url == tag));
+            }
+            return View(new PostViewModel{Posts = await posts.ToListAsync()});
+         }
+
+        public async Task<IActionResult> Details(string url)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var post = await _postRepository.Posts
-                    .FirstOrDefaultAsync(p => p.PostId == id);
-
-                if (post == null)
-                {
-                    return NotFound();
-                }
-
-                return View(post);
+                return View(await _postRepository.Posts.Include(x=>x.Tags).Include(x=>x.Comments).ThenInclude(x=>x.User).FirstOrDefaultAsync(p=>p.Url == url));
             }
         }
 };
