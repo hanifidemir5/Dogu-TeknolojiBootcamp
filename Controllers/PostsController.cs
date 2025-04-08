@@ -12,19 +12,34 @@ namespace BlogApp.Controllers{
     public class PostsController : Controller{
         private IPostRepository _postRepository;
         private ICommentRepository _commentRepository;
-        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository){
+        private ITagRepository _tagRepository;
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository,ITagRepository tagRepository){
             _postRepository = postRepository;
             _commentRepository = commentRepository;
+            _tagRepository = tagRepository;
         }
-        public async Task<IActionResult> Index(string tag){
+        public async Task<IActionResult> Index(string tag)
+        {
             var claims = User.Claims;
             var posts = _postRepository.Posts;
 
-            if(!string.IsNullOrEmpty(tag)){
-                posts = posts.Where(x=>x.Tags.Any(t=>t.Url == tag));
+            if (!string.IsNullOrEmpty(tag))
+            {
+                posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
             }
-            return View(new PostViewModel{Posts = await posts.ToListAsync()});
-         }
+
+            var postList = await posts.ToListAsync();
+            var tagsList = postList.Select(post => post.Tags.ToList()).ToList();
+
+            var viewModel = new PostViewModel
+            {
+                Posts = postList,
+                Tags = tagsList
+            };
+
+            return View(viewModel);
+        }
+
 
         public async Task<IActionResult> Details(string url){
             return View(await _postRepository.Posts.Include(x=>x.Tags).Include(x=>x.Comments).ThenInclude(x=>x.User).FirstOrDefaultAsync(p=>p.Url == url));
@@ -67,8 +82,7 @@ namespace BlogApp.Controllers{
             if(ModelState.IsValid){
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                _postRepository.CreatePost(
-                    new Post{
+                var post = new Post{
                         Title = model.Title,
                         Content = model.Content,
                         Url = model.Url,
@@ -76,8 +90,20 @@ namespace BlogApp.Controllers{
                         PublishedOn = DateTime.Now,
                         Image = "1.jpg",
                         IsActive = false
-                    }
-                );
+                    };
+
+                _postRepository.CreatePost(post);
+
+                 // If tags are selected, add them to the post
+                if (model.SelectedTagIds != null && model.SelectedTagIds.Any())
+                {
+                    // Fetch the selected tags
+                    var selectedTags = _tagRepository.GetTagsByIds(model.SelectedTagIds).ToList();
+
+                    // Add the tags to the post
+                    post.Tags.AddRange(selectedTags);
+                }
+
                 return RedirectToAction("Index");
             }
             return View(model);
