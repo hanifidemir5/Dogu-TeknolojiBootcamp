@@ -24,12 +24,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin: 1rem;
 }
 
 .post-card {
   width: 100%;
-  max-width: 300px;
+  max-width: 250px;
   height: 400px;
   background: #fefffe;
   gap: 1rem;
