@@ -42,7 +42,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "posts_by_tag",
-    pattern: "blogs/tag/{tag}",
+    pattern: "blog/tag/{tag}",
     defaults: new { controller = "Posts", action = "Index" }
 );
 
