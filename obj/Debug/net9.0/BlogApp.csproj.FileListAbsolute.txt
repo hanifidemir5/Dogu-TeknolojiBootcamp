@@ -2296,5 +2296,7 @@ C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\n
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\2h1vk5otyt-wgi0q5jg0p.gz
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\oxkcu2ox4a-bqu073oqgt.gz
 C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\BlogApp.sourcelink.json
-C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\w2bw8qccko-uk3l8eepoa.gz
-C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\luixcmj0e2-zy8ajr3yr1.gz
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\nqdvtu4fcb-y5q8dgq3ks.gz
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\v7w4cj59ey-x3gk67qswt.gz
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\w2bw8qccko-p4nrxokqj4.gz
+C:\Users\teyme\OneDrive\Masaüstü\Doğuş teknoloji eğitim\blogapp\obj\Debug\net9.0\compressed\luixcmj0e2-72e9zvw196.gz
