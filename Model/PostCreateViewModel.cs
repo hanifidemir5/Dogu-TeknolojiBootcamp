@@ -25,6 +25,10 @@ using System.ComponentModel.DataAnnotations;
 
         [Display(Name = "Tags")]
         public List<Tag> AllTags { get; set; } = new List<Tag>();
+        
+        [Display(Name = "Image")]
+        [Required(ErrorMessage = "Image is required.")]
+        public IFormFile ImageFile { get; set; }
     }
 
 }

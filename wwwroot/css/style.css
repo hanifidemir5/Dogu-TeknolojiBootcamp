@@ -66,6 +66,16 @@ button.button-primary:hover {
   border-color: #0a58ca;
 }
 
+button.button-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+button.button-success:hover {
+  background-color: #157347;
+  border-color: #157347;
+}
+
 label {
   font-size: 1.2rem !important;
   margin-bottom: 0.5rem !important;

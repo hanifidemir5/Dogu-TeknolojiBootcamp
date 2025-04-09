@@ -2,6 +2,7 @@ using BlogApp.Data.Abstract;
 using BlogApp.Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlogApp.Data.Concrete.EfCore
 {
@@ -16,14 +17,14 @@ namespace BlogApp.Data.Concrete.EfCore
 
         public IQueryable<Post> Posts => _context.Posts;
 
-        public void CreatePost(Post post)
+        public async Task CreatePostAsync(Post post)
         {
-            _context.Posts.Add(post);
-            _context.SaveChanges();        
+            await _context.Posts.AddAsync(post);
+            await _context.SaveChangesAsync();        
         }
 
-        public void EditPost(Post post){
-            var entity = _context.Posts.FirstOrDefault(i=>i.PostId == post.PostId);
+        public async Task EditPostAsync(Post post){
+            var entity = await _context.Posts.FirstOrDefaultAsync(i=>i.PostId == post.PostId);
 
             if(entity != null){
                 entity.Title = post.Title;
@@ -32,7 +33,7 @@ namespace BlogApp.Data.Concrete.EfCore
                 entity.Url = post.Url;
                 entity.IsActive = post.IsActive;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
     }

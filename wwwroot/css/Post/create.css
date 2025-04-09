@@ -1,0 +1,41 @@
+.create-post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+  width: 100%;
+  min-width: 600px;
+}
+
+.form-group {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-tags {
+  width: 100%;
+}
+
+.form-check {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-check label {
+  font-weight: normal !important;
+}
+
+.post-info {
+  width: 100%;
+}

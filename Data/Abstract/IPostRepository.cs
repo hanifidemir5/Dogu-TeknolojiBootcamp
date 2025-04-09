@@ -3,7 +3,7 @@ using BlogApp.Entity;
 namespace BlogApp.Data.Abstract{
     public interface IPostRepository{
         IQueryable<Post> Posts { get; }
-        void CreatePost(Post post);
-        void EditPost(Post post);
+        Task CreatePostAsync(Post post);
+        Task EditPostAsync(Post post);
     }
 }
