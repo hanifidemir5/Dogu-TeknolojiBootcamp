@@ -22,7 +22,7 @@
                 <input type="file" 
                     id="imageInput" 
                     name="ImageFile"
-                    style="display:none;" 
+                    style="display:none;"
                     accept="image/*" 
                     onchange="previewImage(event)"/>
             </div>
@@ -49,6 +49,17 @@
                     <textarea asp-for="Content" class="form-control"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
+                @if (User.IsInRole("admin"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="IsActive" class="form-label"></label>
+                        <select asp-for="IsActive" class="form-select">
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                }
             </div>
             <div class="post-tags">
                 <div class="mb-3">
