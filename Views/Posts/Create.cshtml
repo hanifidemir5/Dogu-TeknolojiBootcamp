@@ -7,32 +7,29 @@
     <h1>Post Create</h1>
     <form action="Create" class="create-form" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <img id="postImage" src="~/img/default-post.jpeg" alt="Profile Image" class="post-image-preview" style="cursor: pointer;"/>
+        <input type="file" id="imageInput" name="ImageFile"style="display:none; "accept="image/*" />
         <div class="form-group">
             <div class="post-info">
                 <div class="mb-3">
                     <label asp-for="Title" class="form-label"></label>
-                    <input asp-for="Title" class="form-control">
+                    <input asp-for="Title" placeholder="Enter your title" required>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Description" class="form-label"></label>
-                    <input asp-for="Description" class="form-control">
+                    <input asp-for="Description" placeholder="Enter your description" required>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Url" class="form-label"></label>
-                    <input asp-for="Url" class="form-control">
+                    <input asp-for="Url" placeholder="Enter your URL" required>
                     <span asp-validation-for="Url" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Content" class="form-label"></label>
-                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <textarea asp-for="Content" placeholder="Enter your content" style="width: 100%; border-radius:0.5rem; min-height:100px; text-indent:0.25rem"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="ImageFile" class="form-label"></label>
-                    <input asp-for="ImageFile" type="file" class="form-control" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
             </div>
             <div class="post-tags">
@@ -47,7 +44,26 @@
                     }
                 </div>
             </div>
-            <button type="submit" class="button-success">Create</button>
         </div>
+        <button type="submit" class="button-success">Create</button>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('postImage').addEventListener('click', function () {
+            document.getElementById('imageInput').click();
+        });
+
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('postImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}
