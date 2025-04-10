@@ -1,57 +1,84 @@
-@model PostCreateViewModel
+@section styles {
+    <link rel="stylesheet" href="~/css/Post/create.css">
+}
 
-<div class="row">
-    <div class="col-12">
-        <div class="bg-white p-4">
-            <h1>Post Edit</h1>
-            <form action="@Url.Action("Edit", "Posts")" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="PostId" />
-                    <div class="form-group">
-                    <div class="post-info">
-                        <div class="mb-3">
-                            <label asp-for="Title" class="form-label"></label>
-                            <input asp-for="Title" class="form-control">
-                            <span asp-validation-for="Title" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Description" class="form-label"></label>
-                            <input asp-for="Description" class="form-control">
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Url" class="form-label"></label>
-                            <input asp-for="Url" class="form-control">
-                            <span asp-validation-for="Url" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Content" class="form-label"></label>
-                            <textarea asp-for="Content" class="form-control"></textarea>
-                            <span asp-validation-for="Content" class="text-danger"></span>
-                        </div>
-                        @if (!string.IsNullOrEmpty(Model.ImageFile?.FileName)) 
-                        {
-                            <div class="form-group">
-                                <label>Current Image:</label>
-                                <img src="@Model.Image" alt="Current Image" class="img-thumbnail" />
-                            </div>
-                        }
-                    </div>
-                    <div class="post-tags">
-                        <div class="mb-3">
-                            <label class="form-label">Tags</label>
-                            @foreach (var tag in Model.AllTags)
-                            {
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId" />
-                                    <label class="form-check-label">@tag.Text</label>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    <button type="submit" class="button-success">Save Changes</button>
+@model PostEditViewModel
+
+<div class="create-post-container">
+    <h1>Post Edit</h1>
+    <form action="@Url.Action("Edit", "Posts")" class="create-form" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PostId" />
+        @if (Model.Image != null) 
+        {
+            <div class="d-flex flex-column align-items-center mb-3">
+                <label>Current Image:</label>
+                <img src="~/img/@Model.Image" 
+                    alt="Current Image" 
+                    class="img-thumbnail" 
+                    id="currentImage"
+                    style="object-fit:cover; cursor: pointer;" 
+                    onclick="document.getElementById('imageInput').click();"/>
+                <input type="file" 
+                    id="imageInput" 
+                    name="ImageFile"
+                    style="display:none;" 
+                    accept="image/*" 
+                    onchange="previewImage(event)"/>
+            </div>
+        }
+        <div class="form-group">
+            <div class="post-info">
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-            </form>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <input asp-for="Description" class="form-control">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Url" class="form-label"></label>
+                    <input asp-for="Url" class="form-control">
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Content" class="form-label"></label>
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="post-tags">
+                <div class="mb-3">
+                    <label class="form-label">Tags</label>
+                    @foreach (var tag in Model.AllTags)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId"  @(Model.SelectedTagIds.Contains(tag.TagId) ? "checked" : "") />
+                            <label class="form-check-label">@tag.Text</label>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-    </div>
+        <button type="submit" class="button-success">Save Changes</button>
+    </form>
 </div>
+
+@section Scripts {
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('currentImage').src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
