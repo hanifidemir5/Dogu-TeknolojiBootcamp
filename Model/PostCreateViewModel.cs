@@ -15,6 +15,7 @@ using System.ComponentModel.DataAnnotations;
 
         [Required]
         public string? Content { get; set; }
+        public string? Image { get; set; }
 
         [Required]
         public string? Url { get; set; }

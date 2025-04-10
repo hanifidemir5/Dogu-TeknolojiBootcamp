@@ -107,7 +107,7 @@ namespace BlogApp.Controllers{
                 using (var stream = new FileStream(filePath, FileMode.Create)){
                     await model.ImageFile.CopyToAsync(stream);
                 }
-
+                
                 var post = new Post{
                     Title = model.Title,
                     Content = model.Content,
@@ -115,16 +115,20 @@ namespace BlogApp.Controllers{
                     UserId = int.Parse(userId),
                     PublishedOn = DateTime.Now,
                     Description = model.Description,
-                    Image = "/img/" + fileName,
+                    Image = fileName,
                     IsActive = false
                 };
 
                 await _postRepository.CreatePostAsync(post);
 
+                post.Tags = post.Tags ?? new List<Tag>();
+
                 if (model.SelectedTagIds != null && model.SelectedTagIds.Any()){
-                    var selectedTags = _tagRepository.GetTagsByIds(model.SelectedTagIds).ToList();
+                    var selectedTags = await _tagRepository.GetTagsByIds(model.SelectedTagIds).ToListAsync();
                     post.Tags.AddRange(selectedTags);
                 }
+
+                await _postRepository.EditPostAsync(post);
 
                 return RedirectToAction("Index");
             }
@@ -149,6 +153,7 @@ namespace BlogApp.Controllers{
         }
 
         // GET: Edit Post
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Edit(int? id){
             if (id == null){
@@ -160,13 +165,14 @@ namespace BlogApp.Controllers{
                 return NotFound();
             }
 
-            var viewModel = new PostCreateViewModel{
+            var viewModel = new PostEditViewModel{
                 PostId = post.PostId,
                 Title = post.Title,
                 Description = post.Description,
                 Content = post.Content,
                 Url = post.Url,
                 ImageFile = null, 
+                Image = post.Image, 
                 IsActive = post.IsActive,
                 SelectedTagIds = post.Tags.Select(t => t.TagId).ToList(),
                 AllTags = await _tagRepository.Tags.ToListAsync()
@@ -178,32 +184,64 @@ namespace BlogApp.Controllers{
         // POST: Edit Post
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(PostCreateViewModel model){
-            if (ModelState.IsValid){
-                // var entityToUpdate = await _postRepository.Posts
-                // .Include(p => p.Tags)
-                // .FirstOrDefaultAsync(p => p.PostId == model.PostId);
+        public async Task<IActionResult> Edit(PostEditViewModel model){
+                if (ModelState.IsValid){
+                    var entityToUpdate = await _postRepository.Posts
+                    .Include(p => p.Tags).FirstOrDefaultAsync(p => p.PostId == model.PostId);
 
-                var entityToUpdate = new Post{
-                    PostId = model.PostId,
-                    Title = model.Title,
-                    Description = model.Description,
-                    Content = model.Content,
-                    Url = model.Url
-                };
-                Console.WriteLine("Post Edit Payload:");
-                Console.WriteLine($"PostId: {model.PostId}");
-                Console.WriteLine($"Title: {model.Title}");
-                Console.WriteLine($"Description: {model.Description}");
-                Console.WriteLine($"Content: {model.Content}");
-                Console.WriteLine($"Url: {model.Url}");
+                if (entityToUpdate == null)
+                {
+                    return NotFound();
+                }
 
-                // if (User.FindFirstValue(ClaimTypes.Role) == "admin"){
-                //     entityToUpdate.IsActive = model.IsActive;
-                // }
+                entityToUpdate.Title = model.Title;
+                entityToUpdate.Description = model.Description;
+                entityToUpdate.Content = model.Content;
+                entityToUpdate.Url = model.Url;
+                var currentTagIds = entityToUpdate.Tags.Select(t => t.TagId).ToList();
 
-                // await _postRepository.EditPostAsync(entityToUpdate);
-                // return RedirectToAction("List");
+                var selectedTagIds = model.SelectedTagIds;
+
+                if (!currentTagIds.SequenceEqual(selectedTagIds))
+                {
+                    entityToUpdate.Tags.Clear();
+
+                    var selectedTags = await _tagRepository.GetTagsByIds(selectedTagIds).ToListAsync();
+                    entityToUpdate.Tags.AddRange(selectedTags);
+                }
+
+                Console.WriteLine("ImageFile is null: " + (model.ImageFile == null));
+
+                if (model.ImageFile != null)
+                {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", entityToUpdate.Image);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                    var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+                    var newFilePath = Path.Combine(uploadsFolder, newFileName);
+
+                    using (var stream = new FileStream(newFilePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+
+                    entityToUpdate.Image = newFileName;
+                }
+
+                await _postRepository.EditPostAsync(entityToUpdate);
+
+                if (User.FindFirstValue(ClaimTypes.Role) == "admin"){
+                    entityToUpdate.IsActive = model.IsActive;
+                }
+
+                return RedirectToAction("List");
+            }
+            else{
+                Console.WriteLine("Model state is invalid.");
             }
             return View(model);
         }
