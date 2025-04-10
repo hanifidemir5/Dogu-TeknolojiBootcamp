@@ -15,7 +15,7 @@ namespace BlogApp.Data.Concrete.EfCore
             _context = context;
         }
 
-        public IQueryable<Post> Posts => _context.Posts;
+        public IQueryable<Post> Posts => _context.Posts.Include(p => p.Tags);
 
         public async Task CreatePostAsync(Post post)
         {

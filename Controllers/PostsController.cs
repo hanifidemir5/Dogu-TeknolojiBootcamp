@@ -23,23 +23,41 @@ namespace BlogApp.Controllers{
         }
 
         // GET: Index
-        public async Task<IActionResult> Index(string tag){
-            var posts = _postRepository.Posts;
+        public async Task<IActionResult> Index(string tag, int page = 1, int pageSize = 9)
+        {
+            var postsQuery = _postRepository.Posts
+                .Include(p => p.Tags)
+                .Where(x => x.IsActive);
 
-            if (!string.IsNullOrEmpty(tag)){
-                posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));
+            if (!string.IsNullOrEmpty(tag))
+            {
+                postsQuery = postsQuery.Where(x => x.Tags.Any(t => t.Url == tag));
             }
 
-            var postList = await posts.ToListAsync();
-            var tagsList = postList.Select(post => post.Tags.ToList()).ToList();
+            var totalPosts = await postsQuery.CountAsync();
 
-            var viewModel = new PostViewModel{
+            var postList = await postsQuery
+                .OrderByDescending(p => p.PublishedOn)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var postTags = postList.ToDictionary(
+                post => post.PostId,
+                post => post.Tags.ToList()
+            );
+
+            var viewModel = new PostViewModel
+            {
                 Posts = postList,
-                Tags = tagsList
+                PostTags = postTags,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalPosts / (double)pageSize)
             };
 
             return View(viewModel);
         }
+
 
         // GET: Details
         public async Task<IActionResult> Details(string url){
@@ -185,9 +203,9 @@ namespace BlogApp.Controllers{
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(PostEditViewModel model){
-                if (ModelState.IsValid){
-                    var entityToUpdate = await _postRepository.Posts
-                    .Include(p => p.Tags).FirstOrDefaultAsync(p => p.PostId == model.PostId);
+            if (ModelState.IsValid){
+                var entityToUpdate = await _postRepository.Posts
+                .Include(p => p.Tags).FirstOrDefaultAsync(p => p.PostId == model.PostId);
 
                 if (entityToUpdate == null)
                 {
@@ -210,8 +228,6 @@ namespace BlogApp.Controllers{
                     entityToUpdate.Tags.AddRange(selectedTags);
                 }
 
-                Console.WriteLine("ImageFile is null: " + (model.ImageFile == null));
-
                 if (model.ImageFile != null)
                 {
                     var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", entityToUpdate.Image);
@@ -232,11 +248,13 @@ namespace BlogApp.Controllers{
                     entityToUpdate.Image = newFileName;
                 }
 
-                await _postRepository.EditPostAsync(entityToUpdate);
-
                 if (User.FindFirstValue(ClaimTypes.Role) == "admin"){
+                    Console.WriteLine("Role: " + User.FindFirstValue(ClaimTypes.Role));
+                    Console.WriteLine("IsActive: " + model.IsActive);
                     entityToUpdate.IsActive = model.IsActive;
                 }
+
+                await _postRepository.EditPostAsync(entityToUpdate);
 
                 return RedirectToAction("List");
             }

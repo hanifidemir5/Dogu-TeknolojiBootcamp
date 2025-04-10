@@ -17,10 +17,15 @@
                 <div class="post-body">
                     <h5><a href="/blog/@post.Url" class="post-link">@post.Title</a></h5>
                     <p class="post-desc">@post.Description</p>
-                    @foreach (var tag in Model.Tags[Model.Posts.IndexOf(post)])
-                    {
-                        <span class="tag">@tag.Text</span>
-                    }
+                    <div class="tags-container">
+                        @if (Model.PostTags.ContainsKey(post.PostId))
+                        {
+                            foreach (var tag in Model.PostTags[post.PostId].Take(2))
+                            {
+                                <a href="/blog/tag/@tag.Url" class="tag">@tag.Text</a>
+                            }
+                        }
+                    </div>
                 </div>
             </div>
         }
@@ -28,9 +33,12 @@
 
         <nav>
             <ul class="pagination">
-                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="?page=@i">@i</a>
+                    </li>
+                }
             </ul>
         </nav>
     </div>
@@ -40,20 +48,3 @@
         <vc:new-posts></vc:new-posts>
     </div>
 </div>
-
-
-@section scripts{
-    <script>
-        var posts = @Html.Raw(Json.Serialize(Model));
-
-        console.log(posts);
-
-        posts.forEach(function(post) {
-            console.log("Post Title: " + post.title);
-            console.log("Post Description: " + post.description);
-            post.tags.forEach(function(tag) {
-                console.log("Tag: " + tag.text + ", URL: " + tag.url);
-            });
-        });
-    </script>
-}
