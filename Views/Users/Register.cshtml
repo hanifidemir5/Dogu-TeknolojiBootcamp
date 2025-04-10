@@ -6,33 +6,56 @@
 
 <div class="register-container">
     <h1>Register</h1>
-    <form action="Register" class="register-form" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="mb-3">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control">
-            <span asp-validation-for="Name" class="text-danger"></span>
+    <form action="Register" class="register-form" method="post" enctype="multipart/form-data">
+        <img id="profileImage" src="~/img/default-profile.png" alt="Profile Image" style="cursor: pointer;"/>
+        <input class="profile-image" type="file" id="imageInput" name="ImageFile" accept="image/*" />
+            <div class="d-flex flex-column">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" placeholder="Enter your name" required>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" placeholder="Enter your username" required>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" placeholder="Enter your email" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" placeholder="Enter your password" required>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" placeholder="Confirm your password" required>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button class="button-primary" type="submit">Register</button>
         </div>
-        <div class="mb-3">
-            <label asp-for="Username" class="form-label"></label>
-            <input asp-for="Username" class="form-control">
-            <span asp-validation-for="Username" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control">
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Password" class="form-label"></label>
-            <input asp-for="Password" class="form-control">
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ConfirmPassword" class="form-label"></label>
-            <input asp-for="ConfirmPassword" class="form-control">
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-        <button class="button-primary" type="submit">Register</button>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('profileImage').addEventListener('click', function () {
+            document.getElementById('imageInput').click();
+        });
+
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profileImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

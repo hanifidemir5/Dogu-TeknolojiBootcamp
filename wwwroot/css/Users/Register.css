@@ -1,7 +1,7 @@
 .register-form {
-  width: 400px;
+  width: 800px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .register-container {
@@ -10,4 +10,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.profile-image {
+  display: none;
 }

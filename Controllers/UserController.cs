@@ -40,12 +40,22 @@ namespace BlogApp.Controllers{
             if(ModelState.IsValid){
                 var user = await _userRepository.Users.FirstOrDefaultAsync(x=>x.UserName == model.Username || x.Email == model.Email);
                 if(user == null){
+
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                    Directory.CreateDirectory(uploadsFolder);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create)){
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+
                     _userRepository.CreateUser(new Entity.User {
                         UserName = model.Username,
                         Name = model.Name,
                         Email = model.Email,
                         Password = model.Password,
-                        Image = "p1.jpg"
+                        Image = fileName,
                     });
                 return RedirectToAction("Login");
                 }else{
