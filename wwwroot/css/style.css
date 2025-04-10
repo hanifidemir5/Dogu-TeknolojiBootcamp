@@ -6,9 +6,14 @@ body {
   padding: 2rem 6rem;
 }
 
+button a {
+  color: white !important;
+}
+
 a {
   text-decoration: none !important;
 }
+
 .avatar {
   width: 3rem;
   height: 3rem;
@@ -58,12 +63,21 @@ button {
 button.button-primary {
   border-color: #0d6efd;
   background-color: #0d6efd;
-  color: white;
 }
 
 button.button-primary:hover {
   background-color: #0b5ed7;
   border-color: #0a58ca;
+}
+
+button.button-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+button.button-secondary:hover {
+  background-color: #5a6268;
+  color: #fff;
 }
 
 button.button-success {

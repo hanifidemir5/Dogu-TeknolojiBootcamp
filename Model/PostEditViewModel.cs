@@ -20,7 +20,7 @@ namespace BlogApp.Models
 
         [Required]
         public string? Url { get; set; }
-
+        [Display(Name = "Activity")]
         public bool IsActive { get; set; }
 
         public List<int> SelectedTagIds { get; set; } = new List<int>();
