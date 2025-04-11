@@ -23,7 +23,7 @@ namespace BlogApp.Controllers{
         }
 
         // GET: Index
-        public async Task<IActionResult> Index(string tag, int page = 1, int pageSize = 9)
+        public async Task<IActionResult> Index(string tag, int page = 1, int pageSize = 12)
         {
             var postsQuery = _postRepository.Posts
                 .Include(p => p.Tags)

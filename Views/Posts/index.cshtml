@@ -7,6 +7,10 @@
 <div class="post-main-container">
     <div class="content-container">
         <h1 class="align-self-start p-2 mb-4">Popular Posts</h1>
+        <div class="d-flex justify-content-between align-items-center px-auto w-100">
+            <button class="w-auto h-auto @(Model.CurrentPage == 0 && Model.CurrentPage >= 0 ? "button-primary" : "button-secondary opacity-50")"><a class="page-link" href="?page=@(@Model.CurrentPage - 1)">Previous Page</a></button>
+            <button class="w-auto h-auto @(Model.CurrentPage == Model.TotalPages - 1 && Model.CurrentPage >= 0 ? "button-primary" : "button-secondary opacity-50")"><a class="page-link" href="?page=@(@Model.CurrentPage + 1)">Next Page</a></button>
+        </div>
         <div class="post-content">
         @foreach(var post in Model.Posts)
         {
@@ -35,7 +39,7 @@
             <ul class="pagination">
                 @for (int i = 1; i <= Model.TotalPages; i++)
                 {
-                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                    <li class="page-item @(Model.CurrentPage == i ? "active pe-none" : "")">
                         <a class="page-link" href="?page=@i">@i</a>
                     </li>
                 }

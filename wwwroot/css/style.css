@@ -60,32 +60,33 @@ button {
   align-self: flex-end;
 }
 
-button.button-primary {
+button.button-primary,
+a.button-primary {
   border-color: #0d6efd;
   background-color: #0d6efd;
 }
 
-button.button-primary:hover {
+button.button-primary:hover a.button-primary:hover {
   background-color: #0b5ed7;
   border-color: #0a58ca;
 }
 
-button.button-secondary {
+button.button-secondary a.button-secondary {
   background-color: #6c757d;
   color: #fff;
 }
 
-button.button-secondary:hover {
+button.button-secondary:hover a.button-secondary:hover {
   background-color: #5a6268;
   color: #fff;
 }
 
-button.button-success {
+button.button-success a.button-success {
   background-color: #198754;
   border-color: #198754;
 }
 
-button.button-success:hover {
+button.button-success:hover a.button-success:hover {
   background-color: #157347;
   border-color: #157347;
 }
