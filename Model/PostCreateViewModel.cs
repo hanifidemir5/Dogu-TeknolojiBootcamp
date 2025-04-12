@@ -1,20 +1,20 @@
 using System.ComponentModel.DataAnnotations;
  using BlogApp.Entity;
  
- namespace BlogApp.Models{
- 
-    public class PostCreateViewModel
+namespace BlogApp.Models{
+    public class PostBaseViewModel
     {
         public int PostId { get; set; }
 
         [Required]
         public string? Title { get; set; }
 
-        [Required]
+        [Required, MaxLength(32)]
         public string? Description { get; set; }
 
         [Required]
         public string? Content { get; set; }
+
         public string? Image { get; set; }
 
         [Required]
@@ -22,14 +22,22 @@ using System.ComponentModel.DataAnnotations;
 
         public bool IsActive { get; set; }
 
-        public List<int> SelectedTagIds { get; set; } = new List<int>();
-
-        [Display(Name = "Tags")]
-        public List<Tag> AllTags { get; set; } = new List<Tag>();
+        public List<int> SelectedTagIds { get; set; } = new();
         
+        [Display(Name = "Tags")]
+        public List<Tag> AllTags { get; set; } = new();
+    }
+
+    public class PostCreateViewModel : PostBaseViewModel
+    {
         [Display(Name = "Image")]
-        [Required(ErrorMessage = "Image is required.")]
+        [Required(ErrorMessage = "Image is required when creating a post.")]
         public IFormFile ImageFile { get; set; }
+    }
+
+    public class PostEditViewModel : PostBaseViewModel
+    {
+        public IFormFile? ImageFile { get; set; } // Optional on edit
     }
 
 }
