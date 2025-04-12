@@ -1,54 +1,76 @@
 @model BlogApp.Models.PostViewModel
 
-@section styles{
+@section styles {
     <link rel="stylesheet" href="~/css/Post/index.css">
 }
 
-<div class="post-main-container">
-    <div class="content-container">
-        <h1 class="align-self-start p-2 mb-4">Popular Posts</h1>
-        <div class="d-flex justify-content-between align-items-center px-auto w-100">
-            <button class="w-auto h-auto @(Model.CurrentPage == 0 && Model.CurrentPage >= 0 ? "button-primary" : "button-secondary opacity-50")"><a class="page-link" href="?page=@(@Model.CurrentPage - 1)">Previous Page</a></button>
-            <button class="w-auto h-auto @(Model.CurrentPage == Model.TotalPages - 1 && Model.CurrentPage >= 0 ? "button-primary" : "button-secondary opacity-50")"><a class="page-link" href="?page=@(@Model.CurrentPage + 1)">Next Page</a></button>
+<div>
+    <div class="full-width-component">
+        <div class="index-header-container">
+            <h1>Welcome to Redd(k)it</h1>
+            <form method="get" action="/posts/search" class="search-form">
+                <input type="text" name="q" placeholder="Search posts..." value="@ViewData["SearchQuery"]" class="search-input" />
+                <button type="submit" class="search-button">🔍</button>
+            </form>
         </div>
-        <div class="post-content">
-        @foreach(var post in Model.Posts)
-        {
-            <div class="post-card">
-                <div class="post-image-container">
-                    <img src="~/img/@post.Image" alt="">
-                </div>  
-                <div class="post-body">
-                    <h5><a href="/blog/@post.Url" class="post-link">@post.Title</a></h5>
-                    <p class="post-desc">@post.Description</p>
-                    <div class="tags-container">
-                        @if (Model.PostTags.ContainsKey(post.PostId))
-                        {
-                            foreach (var tag in Model.PostTags[post.PostId].Take(2))
-                            {
-                                <a href="/blog/tag/@tag.Url" class="tag">@tag.Text</a>
-                            }
-                        }
-                    </div>
+    </div>
+    <vc:tags-menu></vc:tags-menu>
+
+        <div class="index-main-container">
+            <div class="content-container">
+                <div class="d-flex justify-content-between align-items-center px-auto w-100">
+                    <a class="previous-page-link @(Model.CurrentPage == 1 ? "deactive" : "button-primary")"
+                    href="?page=@(Model.CurrentPage - 1)">Previous Page</a>
+                    <a class="next-page-link @(Model.CurrentPage >= Model.TotalPages ? "deactive" : "button-primary")"
+                    href="?page=@(Model.CurrentPage + 1)">Next Page</a>
                 </div>
+                <div class="post-content">
+                    @if (Model.Posts?.Any() == true)
+                    {
+                        @foreach (var post in Model.Posts)
+                        {
+                            <div class="post-card">
+                                <div class="post-image-container">
+                                    <a href="/blog/@post.Url" class="post-link">
+                                        <img src="@Url.Content($"~/img/{post.Image}")" alt="" />
+                                    </a>
+                                </div>
+                                <div class="post-body">
+                                    <h5><a href="/blog/@post.Url" class="post-link">@post.Title</a></h5>
+                                    <p class="post-desc">@post.Description</p>
+                                    <div class="tags-container">
+                                        @if (Model.PostTags?.ContainsKey(post.PostId) == true)
+                                        {
+                                            foreach (var tag in Model.PostTags[post.PostId].Take(2))
+                                            {
+                                                <a href="/blog/tag/@tag.Url" class="tag">@tag.Text</a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No results found for "@ViewData["SearchQuery"]"</p>
+                    }
+                </div>
+
+                <nav>
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(Model.CurrentPage == i ? "active pe-none" : "")">
+                                <a class="page-link" href="?page=@i">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
             </div>
-        }
+            <div class="side-content">
+                <vc:new-posts></vc:new-posts>
+            </div>
         </div>
 
-        <nav>
-            <ul class="pagination">
-                @for (int i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(Model.CurrentPage == i ? "active pe-none" : "")">
-                        <a class="page-link" href="?page=@i">@i</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
-
-    <div class="side-content">
-        <vc:tags-menu></vc:tags-menu>
-        <vc:new-posts></vc:new-posts>
-    </div>
 </div>
