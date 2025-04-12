@@ -20,7 +20,7 @@ namespace BlogApp.Models{
 
         [Display(Name = "Image")]
         [Required(ErrorMessage = "Image is required.")]
-        public IFormFile ImageFile { get; set; }
+        public required IFormFile ImageFile { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
