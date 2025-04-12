@@ -28,7 +28,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                 context.SaveChanges();
             }
             var tags = context.Tags.ToList();
-            Tag GetTag(string text) => tags.FirstOrDefault(t => t.Text == text);
+            Tag GetTag(string text) =>
+            tags.FirstOrDefault(t => t.Text == text)
+            ?? throw new InvalidOperationException($"Tag '{text}' not found.");
 
             if(!context.Users.Any()){
                  context.Users.AddRange(
