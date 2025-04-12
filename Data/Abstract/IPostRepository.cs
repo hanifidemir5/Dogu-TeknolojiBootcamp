@@ -5,5 +5,7 @@ namespace BlogApp.Data.Abstract{
         IQueryable<Post> Posts { get; }
         Task CreatePostAsync(Post post);
         Task EditPostAsync(Post post);
+        void DeletePost(Post post);
+
     }
 }

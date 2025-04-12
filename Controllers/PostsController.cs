@@ -161,16 +161,18 @@ namespace BlogApp.Controllers{
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
             var role = User.FindFirstValue(ClaimTypes.Role);
 
-            var posts = _postRepository.Posts;
+            var postsQuery = _postRepository.Posts.AsQueryable();
 
-            if (string.IsNullOrEmpty(role)){
-                posts = posts.Where(i => i.UserId == userId);
+            if (role != "admin")
+            {
+                postsQuery = postsQuery.Where(i => i.UserId == userId);
             }
 
-            return View(await posts.ToListAsync());
+            var posts = await postsQuery.ToListAsync();
+
+            return View(posts);
         }
 
-        // GET: Edit Post
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Edit(int? id){
@@ -230,10 +232,13 @@ namespace BlogApp.Controllers{
 
                 if (model.ImageFile != null)
                 {
-                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", entityToUpdate.Image);
-                    if (System.IO.File.Exists(oldImagePath))
+                    if (!string.IsNullOrEmpty(entityToUpdate.Image))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", entityToUpdate.Image);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
                     }
 
                     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
@@ -262,6 +267,83 @@ namespace BlogApp.Controllers{
                 Console.WriteLine("Model state is invalid.");
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> Search(string q, int page = 1, int pageSize = 12)
+        {
+            var postsQuery = _postRepository.Posts
+                .Include(p => p.Tags)
+                .Where(x => x.IsActive);
+
+            if (!string.IsNullOrEmpty(q))
+            {
+                postsQuery = postsQuery.Where(x =>
+                    (x.Title ?? "").Contains(q) ||
+                    (x.Description ?? "").Contains(q) ||
+                    (x.Content ?? "").Contains(q));
+            }
+
+            var totalPosts = await postsQuery.CountAsync();
+            var postList = await postsQuery
+                .OrderByDescending(p => p.PublishedOn)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var postTags = postList.ToDictionary(post => post.PostId, post => post.Tags.ToList());
+
+            var viewModel = new PostViewModel
+            {
+                Posts = postList,
+                PostTags = postTags,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalPosts / (double)pageSize)
+            };
+
+            ViewData["SearchQuery"] = q;
+
+            return View("Index", viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Console.WriteLine("DeleteConfirmed method called with id: " + id);
+            var post = await _postRepository.Posts
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(p => p.PostId == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdStr, out var UserId))
+            {
+                return Unauthorized();
+            }            
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
+            if (post.UserId != UserId && role != "admin")
+            {
+                return Unauthorized();
+            }
+
+            if (!string.IsNullOrEmpty(post.Image))
+            {
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", post.Image);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            _postRepository.DeletePost(post);
+
+            return RedirectToAction("List");
         }
     }
 }

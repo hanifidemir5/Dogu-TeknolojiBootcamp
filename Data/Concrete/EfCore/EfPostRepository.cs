@@ -36,5 +36,11 @@ namespace BlogApp.Data.Concrete.EfCore
                 await _context.SaveChangesAsync();
             }
         }
+
+        public void DeletePost(Post post)
+        {
+            _context.Posts.Remove(post);
+            _context.SaveChanges();
+        }
     }
 }
