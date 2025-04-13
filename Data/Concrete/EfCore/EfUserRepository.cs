@@ -16,5 +16,10 @@ using BlogApp.Data.Abstract;
             _context.Users.Add(User);
             _context.SaveChanges();
         }
+        public void EditUser(User User)
+        {
+            _context.Users.Update(User);
+            _context.SaveChanges();
+        }
     }
  }
