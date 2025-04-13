@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
@@ -35,13 +36,13 @@ namespace BlogApp.Controllers{
              return View();
          }
 
-         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model){
             if(ModelState.IsValid){
                 var user = await _userRepository.Users.FirstOrDefaultAsync(x=>x.UserName == model.Username || x.Email == model.Email);
                 if(user == null){
 
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/users");
                     Directory.CreateDirectory(uploadsFolder);
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
                     var filePath = Path.Combine(uploadsFolder, fileName);
@@ -113,5 +114,97 @@ namespace BlogApp.Controllers{
             return View(user);
         }
 
+        [HttpGet]
+        public IActionResult Edit(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return NotFound();
+            }
+
+            var user = _userRepository.Users.FirstOrDefault(x => x.UserName == username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EditProfileViewModel
+            {
+                UserId = user.UserId,
+                Name = user.Name,
+                UserName = user.UserName,
+                Email = user.Email,
+                Image = user.Image
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {   
+                var editUser = _userRepository.Users.FirstOrDefault(x => x.UserId == model.UserId);
+
+                if(model.Password != editUser.Password)
+                {
+                    ModelState.AddModelError("", "Incorrect Password!!");
+                    return View(model);
+                }
+
+                if (editUser != null)
+                {
+                    editUser.Name = model.Name;
+                    editUser.UserName = model.UserName;
+                    editUser.Email = model.Email;
+
+                    if (model.ImageFile != null)
+                    {
+                        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/users");
+                        Directory.CreateDirectory(uploadsFolder);
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+                        var filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await model.ImageFile.CopyToAsync(stream);
+                        }
+
+                        editUser.Image = fileName;
+                    }
+
+                    if(model.Password != null && model.NewPassword != null && model.Password != model.NewPassword)
+                    {
+                        editUser.Password = model.NewPassword;
+                    }
+                    else if(model.Password == model.NewPassword){
+                        ModelState.AddModelError("", "New password cannot be same as old password.");
+                        return View(model);
+                    }
+
+                    _userRepository.EditUser(editUser);
+
+                    var claimsIdentity = (ClaimsIdentity)User.Identity;
+                    var usernameClaim = claimsIdentity.FindFirst(ClaimTypes.Name);
+                    if (usernameClaim != null)
+                    {
+                        claimsIdentity.RemoveClaim(usernameClaim);
+                        claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, editUser.UserName));
+                    }
+
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties { IsPersistent = true };
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                    return RedirectToAction("Profile", new { username = editUser.UserName });
+                }
+
+                ModelState.AddModelError("", "User couldn't found.");
+            }
+
+            return View(model);
+        }
     }       
 }

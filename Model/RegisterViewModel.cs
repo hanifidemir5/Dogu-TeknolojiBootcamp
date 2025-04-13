@@ -14,9 +14,9 @@ namespace BlogApp.Models{
         public string? Email {get;set;}
 
         [Required]
-        [StringLength(10,ErrorMessage = "{0} alanı en az {2} karakter uzunluğunda olmalıdır.",MinimumLength = 6)]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "{0} must be between 6 and 20 characters")]
         [DataType(DataType.Password)]
-        public string? Password {get;set;}
+        public string? Password { get; set; }
 
         [Display(Name = "Image")]
         [Required(ErrorMessage = "Image is required.")]
@@ -24,7 +24,7 @@ namespace BlogApp.Models{
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare(nameof(Password),ErrorMessage = "Parolanız eşleşmiyor.")]
+        [Compare(nameof(Password),ErrorMessage = "Passwords do not match.")]
         [Display(Name = "Confirm Password")]
         public string? ConfirmPassword {get;set;}
     }
