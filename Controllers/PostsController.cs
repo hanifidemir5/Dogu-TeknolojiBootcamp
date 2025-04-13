@@ -117,7 +117,7 @@ namespace BlogApp.Controllers{
                     return Unauthorized();
                 }
 
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts");
                 Directory.CreateDirectory(uploadsFolder);
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
                 var filePath = Path.Combine(uploadsFolder, fileName);
@@ -234,14 +234,14 @@ namespace BlogApp.Controllers{
                 {
                     if (!string.IsNullOrEmpty(entityToUpdate.Image))
                     {
-                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", entityToUpdate.Image);
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts", entityToUpdate.Image);
                         if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
                         }
                     }
 
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts");
                     var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
                     var newFilePath = Path.Combine(uploadsFolder, newFileName);
 
@@ -334,7 +334,7 @@ namespace BlogApp.Controllers{
 
             if (!string.IsNullOrEmpty(post.Image))
             {
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", post.Image);
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts", post.Image);
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);
