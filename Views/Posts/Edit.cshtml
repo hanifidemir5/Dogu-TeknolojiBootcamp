@@ -13,14 +13,14 @@
         <div class="d-flex flex-column align-items-center mb-3">
             <label>Current Image:</label>
             @if(User.IsInRole("admin")){
-                <img src="~/img/@Model.Image" 
+                <img src="~/img/posts/@Model.Image" 
                     alt="Current Image" 
                     class="img-thumbnail" 
                     id="currentImage"
                     />
             }
             else{
-                <img src="~/img/@Model.Image" 
+                <img src="~/img/posts/@Model.Image" 
                     alt="Current Image" 
                     class="img-thumbnail" 
                     id="currentImage"
