@@ -12,11 +12,12 @@
     <div class="row">
         <div class="col-md-3 text-center">
             <div class="profile-image-container">
-                <img src="~/img/@Model.Image" class="profile-image img-fluid" alt="Profile Image">
+                <img src="~/img/users/@Model.Image" class="profile-image img-fluid" alt="Profile Image">
             </div>
             <h4 class="mt-3">@Model.Name</h4>
             <p>@Model.UserName</p>
             <p>@Model.Email</p>
+            <a href="/profile/edit/@User.Identity.Name" class="button-link button-primary">Edit Profile</a>
         </div>
 
         <div class="col-md-9">
