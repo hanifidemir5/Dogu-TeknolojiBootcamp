@@ -29,18 +29,6 @@
       "PackagePath": "staticwebassets\\css\\style.css"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\backend-dev.jpg",
-      "PackagePath": "staticwebassets\\img\\backend-dev.jpg"
-    },
-    {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\backend-frontend.jpg",
-      "PackagePath": "staticwebassets\\img\\backend-frontend.jpg"
-    },
-    {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\billgates.jpg",
-      "PackagePath": "staticwebassets\\img\\billgates.jpg"
-    },
-    {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\default-post.jpeg",
       "PackagePath": "staticwebassets\\img\\default-post.jpeg"
     },
@@ -49,64 +37,88 @@
       "PackagePath": "staticwebassets\\img\\default-profile.png"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\elonmusk.jpg",
-      "PackagePath": "staticwebassets\\img\\elonmusk.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\backend-dev.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\backend-dev.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\frontend-trends.jpg",
-      "PackagePath": "staticwebassets\\img\\frontend-trends.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\backend-frontend.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\backend-frontend.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\fullstack-future.jpg",
-      "PackagePath": "staticwebassets\\img\\fullstack-future.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\frontend-trends.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\frontend-trends.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\fullstack-tools.jpg",
-      "PackagePath": "staticwebassets\\img\\fullstack-tools.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\fullstack-future.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\fullstack-future.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\game-dev.jpg",
-      "PackagePath": "staticwebassets\\img\\game-dev.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\fullstack-tools.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\fullstack-tools.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\game-guide.jpg",
-      "PackagePath": "staticwebassets\\img\\game-guide.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\game-dev.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\game-dev.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\jeffbezos.jpg",
-      "PackagePath": "staticwebassets\\img\\jeffbezos.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\game-guide.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\game-guide.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\markzuckerberg.jpg",
-      "PackagePath": "staticwebassets\\img\\markzuckerberg.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\p1.png",
+      "PackagePath": "staticwebassets\\img\\posts\\p1.png"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\p1.png",
-      "PackagePath": "staticwebassets\\img\\p1.png"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\p2.png",
+      "PackagePath": "staticwebassets\\img\\posts\\p2.png"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\p2.png",
-      "PackagePath": "staticwebassets\\img\\p2.png"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\web-evolution.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\web-evolution.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\satyanadella.jpg",
-      "PackagePath": "staticwebassets\\img\\satyanadella.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\posts\\web-programming.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\web-programming.jpg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\sherylsandberg.jpg",
-      "PackagePath": "staticwebassets\\img\\sherylsandberg.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\0a71dd1c-f0c3-4847-9662-b86b7b2a7b2b.png",
+      "PackagePath": "staticwebassets\\img\\users\\0a71dd1c-f0c3-4847-9662-b86b7b2a7b2b.png"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\timcook.jpg",
-      "PackagePath": "staticwebassets\\img\\timcook.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\2747d717-9010-4972-95f2-2f65ec3ca270.webp",
+      "PackagePath": "staticwebassets\\img\\users\\2747d717-9010-4972-95f2-2f65ec3ca270.webp"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\web-evolution.jpg",
-      "PackagePath": "staticwebassets\\img\\web-evolution.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\5a240dea-6513-41b4-8bde-7e2c5b6d4f83.jpeg",
+      "PackagePath": "staticwebassets\\img\\users\\5a240dea-6513-41b4-8bde-7e2c5b6d4f83.jpeg"
     },
     {
-      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\web-programming.jpg",
-      "PackagePath": "staticwebassets\\img\\web-programming.jpg"
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\billgates.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\billgates.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\elonmusk.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\elonmusk.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\jeffbezos.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\jeffbezos.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\markzuckerberg.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\markzuckerberg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\satyanadella.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\satyanadella.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\sherylsandberg.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\sherylsandberg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\timcook.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\timcook.jpg"
     },
     {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",
