@@ -1,0 +1,15 @@
+@model IEnumerable<Category>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+        Categories
+    </a>
+    <ul class="dropdown-menu p-0 m-0">
+        @foreach (var category in Model)
+        {
+            <li>
+                <a class="dropdown-item" href="/posts?category=@category.Url" style="border-radius: 0;">@category.Name</a>
+            </li>
+        }
+    </ul>
+</li>
