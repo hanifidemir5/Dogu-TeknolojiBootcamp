@@ -34,7 +34,7 @@
                                 <td>
                                     <div class="d-flex justify-content-between">
                                         <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.PostId" class="button-link button-primary">Edit</a>
-                                        <button type="button" onclick="showDeleteModal(@item.PostId, '@item.Title')">
+                                        <button type="button" class="button-error" onclick="showDeleteModal(@item.PostId, '@item.Title')">
                                             Delete
                                         </button>
                                     </div>

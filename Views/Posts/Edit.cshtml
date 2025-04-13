@@ -10,10 +10,16 @@
     <form action="@Url.Action("Edit", "Posts")" class="create-form" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="PostId" />
-        @if (Model.Image != null) 
-        {
-            <div class="d-flex flex-column align-items-center mb-3">
-                <label>Current Image:</label>
+        <div class="d-flex flex-column align-items-center mb-3">
+            <label>Current Image:</label>
+            @if(User.IsInRole("admin")){
+                <img src="~/img/@Model.Image" 
+                    alt="Current Image" 
+                    class="img-thumbnail" 
+                    id="currentImage"
+                    />
+            }
+            else{
                 <img src="~/img/@Model.Image" 
                     alt="Current Image" 
                     class="img-thumbnail" 
@@ -25,9 +31,9 @@
                     name="ImageFile"
                     style="display:none;"
                     accept="image/*" 
-                    onchange="previewImage(event)"/>
-            </div>
-        }
+                    onchange="previewImage(event)" />
+            }
+        </div>
         <div class="form-group">
             <div class="post-info">
                 <div class="mb-3">

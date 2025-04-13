@@ -80,6 +80,17 @@ a.button-link.button-primary:hover {
   background-color: #06439e !important;
 }
 
+button.button-error,
+a.button-link.button-error {
+  color: white;
+  background-color: red !important;
+}
+
+button.button-error:hover,
+a.button-link.button-error:hover {
+  background-color: rgb(161, 39, 39) !important;
+}
+
 button.button-secondary,
 a.button-link.button-secondary {
   background-color: #6c757d !important;
@@ -130,12 +141,26 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px rebeccapurple inset !important;
-  -webkit-text-fill-color: #b6eada !important; /* Text color */
+  -webkit-text-fill-color: #b6eada !important;
   font-size: 1rem !important;
 }
 
-.content-body {
-  padding: 2rem 6rem;
+@media (min-width: 576px) and (max-width: 991px) {
+  .content-body {
+    padding: 1.5rem 4rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .content-body {
+    padding: 2rem 6rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content-body {
+    padding: 3rem 8rem;
+  }
 }
 
 .tag-button {

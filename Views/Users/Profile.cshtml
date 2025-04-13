@@ -21,18 +21,19 @@
 
         <div class="col-md-9">
             <div class="bg-white p-4 shadow-sm rounded">
-                <h5 class="my-4">Yayınlanan Gönderiler</h5>
+                <h5 class="my-4">Published Posts</h5>
                 @if (Model.Posts.Any())
                 {
                     <ul class="list-group">
                         @foreach (var post in Model.Posts)
                         {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <li class="list-group-item flex-wrap d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong>@post.Title</strong>
                                     <p class="mb-1 text-muted">@post.PublishedOn.ToString("MMMM dd, yyyy")</p>
+                                    <strong>@post.Title</strong>
+                                    <p class="mb-0 text-muted">@post.Description</p>
                                 </div>
-                                <div class="btn-group">
+                                <div class="btn-group flex-wrap gap-2 justify-content-end align-items-end w-100">
                                     <a href="/posts/edit/@post.PostId" class="button-link button-primary">Edit Page</a>
                                     <a href="/blog/@post.Url" class="button-link button-secondary">Post Page</a>
                                 </div>
@@ -42,7 +43,7 @@
                 }
                 else
                 {
-                    <p class="text-muted">Henüz yayınlanmış gönderiniz yok.</p>
+                    <p class="text-muted">You have no published posts yet.</p>
                 }
             </div>
         </div>
