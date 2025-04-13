@@ -43,7 +43,7 @@
                                 {
                                     foreach (var tag in Model.PostTags[post.PostId].Take(2))
                                     {
-                                        <a href="/blog/tag/@tag.Url" class="tag">@tag.Text</a>
+                                        <a href="/blog/tag/@tag.Url" class="tag text-bg-@tag.Color.ToString().ToLower()">@tag.Text</a>
                                     }
                                 }
                             </div>

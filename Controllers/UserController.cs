@@ -22,8 +22,8 @@ namespace BlogApp.Controllers{
 
         [HttpGet]
         public IActionResult Login(){
-                if(User.Identity!.IsAuthenticated){
-                    return RedirectToAction("Index","Posts");
+            if(User.Identity!.IsAuthenticated){
+                return RedirectToAction("Index","Posts");
             }
             return View();
         }
@@ -70,7 +70,6 @@ namespace BlogApp.Controllers{
         public async Task<IActionResult> Login(LoginViewModel model){
             if(ModelState.IsValid){
                 var isUser = await _userRepository.Users.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
-
                 if(isUser != null){
                     var userClaims = new List<Claim>();
 

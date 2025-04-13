@@ -19,7 +19,7 @@
             <div class="tags mb-3">
                 @foreach (var tag in Model.Tags)
                 {
-                    <a href="/blog/tag/@tag.Url" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">@tag.Text</a>
+                    <a href="/blog/tag/@tag.Url" class="badge text-bg-@tag.Color.ToString().ToLower() mb-2 fw-bold">@tag.Text</a>
                 }
             </div>
             

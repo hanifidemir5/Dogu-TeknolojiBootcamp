@@ -24,6 +24,7 @@ builder.Services.AddScoped<IPostRepository, EfPostRepository>();
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
 
 var app = builder.Build();
 

@@ -14,16 +14,32 @@ namespace BlogApp.Data.Concrete.EfCore{
             }
             if(!context.Tags.Any()){
                 context.Tags.AddRange(
-                    new Tag { Text = "web programlama", Url = "web-programlama", Color = TagColors.primary },
-                    new Tag { Text = "backend", Url = "backend", Color = TagColors.danger },
-                    new Tag { Text = "frontend", Url = "frontend", Color = TagColors.secondary },
-                    new Tag { Text = "game", Url = "game", Color = TagColors.success },
-                    new Tag { Text = "fullstack", Url = "full-stack", Color = TagColors.warning },
-                    new Tag { Text = "mobile development", Url = "mobile-development", Color = TagColors.info },
-                    new Tag { Text = "cloud computing", Url = "cloud-computing", Color = TagColors.primary },
-                    new Tag { Text = "AI & Machine Learning", Url = "ai-machine-learning", Color = TagColors.secondary },
-                    new Tag { Text = "cybersecurity", Url = "cybersecurity", Color = TagColors.success },
-                    new Tag { Text = "IoT", Url = "iot", Color = TagColors.warning }
+                    new Tag { Text = "web dev", Url = "web-dev", Color = TagColors.primary },
+                    new Tag { Text = "backend logic", Url = "backend-logic", Color = TagColors.danger },
+                    new Tag { Text = "frontend UI", Url = "frontend-ui", Color = TagColors.secondary },
+                    new Tag { Text = "game coding", Url = "game-coding", Color = TagColors.success },
+                    new Tag { Text = "fullstack tools", Url = "fullstack-tools", Color = TagColors.warning },
+                    new Tag { Text = "mobile apps", Url = "mobile-apps", Color = TagColors.info },
+                    new Tag { Text = "mobile development", Url = "mobile development", Color = TagColors.info },
+                    new Tag { Text = "cloud tech", Url = "cloud-tech", Color = TagColors.primary },
+                    new Tag { Text = "AI trends", Url = "ai-trends", Color = TagColors.secondary },
+                    new Tag { Text = "security", Url = "security", Color = TagColors.success },
+                    new Tag { Text = "smart devices", Url = "smart-devices", Color = TagColors.warning }
+                );
+                context.SaveChanges();
+            }
+            if(!context.Categories.Any()){
+                context.Categories.AddRange(
+                    new Category { Name = "Web Development", Url = "web-development", IsActive = true },
+                    new Category { Name = "Backend Development", Url = "backend-development", IsActive = true },
+                    new Category { Name = "Frontend Development", Url = "frontend-development", IsActive = true },
+                    new Category { Name = "Game Development", Url = "game-development", IsActive = true },
+                    new Category { Name = "Full-Stack Development", Url = "full-stack-development", IsActive = true },
+                    new Category { Name = "Mobile Development", Url = "mobile-development", IsActive = true },
+                    new Category { Name = "Cloud Computing", Url = "cloud-computing", IsActive = true },
+                    new Category { Name = "AI & Machine Learning", Url = "ai-machine-learning", IsActive = true },
+                    new Category { Name = "Cybersecurity", Url = "cybersecurity", IsActive = true },
+                    new Category { Name = "IoT", Url = "iot", IsActive = true }
                 );
                 context.SaveChanges();
             }
@@ -169,8 +185,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-programming.jpg",
                         PublishedOn = DateTime.Now.AddDays(-5),
-                        Tags = new List<Tag> { GetTag("web programlama"), GetTag("AI & Machine Learning") },
+                        Tags = new List<Tag> { GetTag("web dev"), GetTag("AI trends")},
                         UserId = 1,
+                        CategoryId = 1,
                         Comments = new List<Comment> {
                             new Comment {Text = "Great article! I learned a lot about web programming.", PublishedOn = DateTime.Now, UserId = 3},
                             new Comment {Text = "Very informative, I agree with the points mentioned about the future of development.", PublishedOn = DateTime.Now, UserId = 4}
@@ -185,8 +202,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-10),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("backend logic"), GetTag("cloud tech") },
                         UserId = 2,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "The backend challenges are well articulated. It's a tough job.", PublishedOn = DateTime.Now, UserId = 5},
                             new Comment {Text = "I disagree with some points, but overall it was an insightful post.", PublishedOn = DateTime.Now, UserId = 6}
@@ -201,8 +219,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "frontend-trends.jpg",
                         PublishedOn = DateTime.Now.AddDays(-15),
-                        Tags = new List<Tag> { GetTag("frontend"), GetTag("mobile development") },
+                        Tags = new List<Tag> { GetTag("frontend UI"), GetTag("mobile apps") },
                         UserId = 3,
+                        CategoryId = 3,
                         Comments = new List<Comment> {
                             new Comment {Text = "Frontend frameworks are evolving rapidly, this post hits the key points.", PublishedOn = DateTime.Now, UserId = 7},
                             new Comment {Text = "Useful post for anyone looking to stay up-to-date with frontend trends.", PublishedOn = DateTime.Now, UserId = 8}
@@ -217,8 +236,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-tools.jpg",
                         PublishedOn = DateTime.Now.AddDays(-20),
-                        Tags = new List<Tag> { GetTag("fullstack"), GetTag("IoT") },
+                        Tags = new List<Tag> { GetTag("fullstack tools"), GetTag("smart devices") },
                         UserId = 4,
+                        CategoryId = 5,
                         Comments = new List<Comment> {
                             new Comment {Text = "A full-stack developer's toolkit is essential for versatility in the field.", PublishedOn = DateTime.Now, UserId = 3},
                             new Comment {Text = "Very helpful post. It covers almost all the tools needed.", PublishedOn = DateTime.Now, UserId = 7}
@@ -233,8 +253,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "game-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-25),
-                        Tags = new List<Tag> { GetTag("game"), GetTag("cybersecurity") },
+                        Tags = new List<Tag> { GetTag("game coding"), GetTag("security") },
                         UserId = 5,
+                        CategoryId = 4,
                         Comments = new List<Comment> {
                             new Comment {Text = "Great for beginners! Game development has so much potential.", PublishedOn = DateTime.Now, UserId = 6},
                             new Comment {Text = "Cybersecurity in games is often overlooked. Glad you mentioned it.", PublishedOn = DateTime.Now, UserId = 8}
@@ -249,8 +270,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-evolution.jpg",
                         PublishedOn = DateTime.Now.AddDays(-30),
-                        Tags = new List<Tag> { GetTag("web programlama"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("web dev"), GetTag("cloud tech") },
                         UserId = 6,
+                        CategoryId = 1,
                         Comments = new List<Comment> {
                             new Comment {Text = "I think blockchain will be a big part of the future web.", PublishedOn = DateTime.Now, UserId = 7},
                             new Comment {Text = "Interesting insights on the future of the web. AI will definitely shape things.", PublishedOn = DateTime.Now, UserId = 8}
@@ -265,8 +287,26 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-frontend.jpg",
                         PublishedOn = DateTime.Now.AddDays(-35),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("frontend") },
+                        Tags = new List<Tag> { GetTag("backend logic"), GetTag("frontend UI") },
                         UserId = 7,
+                        CategoryId = 1,
+                        Comments = new List<Comment> {
+                            new Comment {Text = "Both are equally important, but backend is often more complex.", PublishedOn = DateTime.Now, UserId = 6},
+                            new Comment {Text = "Great comparison between backend and frontend.", PublishedOn = DateTime.Now, UserId = 8}
+                        }
+                    },
+                    new Post
+                    {
+                        Title = "Backend vs Frontend: The Battle for Web Dominance",
+                        Content = "A deep dive into the differences between backend and frontend development, and which one is more crucial for web development.",
+                        Description = "Understand the core differences between backend and frontend development, and their roles in the modern web.",
+                        Url = "backend-vs-frontend",
+                        IsActive = true,
+                        Image = "backend-frontend.jpg",
+                        PublishedOn = DateTime.Now.AddDays(-35),
+                        Tags = new List<Tag> { GetTag("backend logic"), GetTag("frontend UI") },
+                        UserId = 7,
+                        CategoryId = 1,
                         Comments = new List<Comment> {
                             new Comment {Text = "Both are equally important, but backend is often more complex.", PublishedOn = DateTime.Now, UserId = 6},
                             new Comment {Text = "Great comparison between backend and frontend.", PublishedOn = DateTime.Now, UserId = 8}
@@ -281,8 +321,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "game-guide.jpg",
                         PublishedOn = DateTime.Now.AddDays(-40),
-                        Tags = new List<Tag> { GetTag("game"), GetTag("mobile development") },
+                        Tags = new List<Tag> { GetTag("game coding"), GetTag("mobile apps") },
                         UserId = 8,
+                        CategoryId = 4,
                         Comments = new List<Comment> {
                             new Comment {Text = "Great advice for anyone starting with game development.", PublishedOn = DateTime.Now, UserId = 7},
                             new Comment {Text = "Building games from scratch is tough but rewarding, as you mentioned.", PublishedOn = DateTime.Now, UserId = 6}
@@ -297,8 +338,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-future.jpg",
                         PublishedOn = DateTime.Now.AddDays(-45),
-                        Tags = new List<Tag> { GetTag("fullstack"), GetTag("AI & Machine Learning") },
+                        Tags = new List<Tag> { GetTag("fullstack tools"), GetTag("AI trends") },
                         UserId = 8,
+                        CategoryId = 5,
                         Comments = new List<Comment> {
                             new Comment {Text = "Excited about the future of full-stack development! These trends are so useful.", PublishedOn = DateTime.Now, UserId = 5},
                             new Comment {Text = "AI and machine learning will definitely impact full-stack development.", PublishedOn = DateTime.Now, UserId = 4}
@@ -313,8 +355,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-programming.jpg",
                         PublishedOn = DateTime.Now.AddDays(-50),
-                        Tags = new List<Tag> { GetTag("cloud computing"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("backend logic") },
                         UserId = 9,
+                        CategoryId = 7,
                         Comments = new List<Comment> {
                             new Comment {Text = "Cloud-native apps are the future! Great guide.", PublishedOn = DateTime.Now, UserId = 5},
                             new Comment {Text = "The scalability aspect is crucial for today's apps.", PublishedOn = DateTime.Now, UserId = 4}
@@ -329,8 +372,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-55),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("backend logic"), GetTag("cloud tech") },
                         UserId = 10,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "Microservices can be difficult to implement but really useful.", PublishedOn = DateTime.Now, UserId = 3},
                             new Comment {Text = "Great post! The section on best practices was very helpful.", PublishedOn = DateTime.Now, UserId = 6}
@@ -345,8 +389,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "frontend-trends.jpg",
                         PublishedOn = DateTime.Now.AddDays(-60),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("fullstack") },
+                        Tags = new List<Tag> { GetTag("backend logic"), GetTag("fullstack tools") },
                         UserId = 11,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "GraphQL is a game-changer for API development. Great read!", PublishedOn = DateTime.Now, UserId = 7},
                             new Comment {Text = "I prefer REST, but GraphQL has its advantages for sure.", PublishedOn = DateTime.Now, UserId = 8}
@@ -361,8 +406,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-tools.jpg",
                         PublishedOn = DateTime.Now.AddDays(-65),
-                        Tags = new List<Tag> { GetTag("cybersecurity"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("security"), GetTag("backend logic") },
                         UserId = 12,
+                        CategoryId = 9,
                         Comments = new List<Comment> {
                             new Comment {Text = "Cybersecurity is often overlooked, great that you’re focusing on it.", PublishedOn = DateTime.Now, UserId = 6},
                             new Comment {Text = "I agree. Implementing solid security practices is a must.", PublishedOn = DateTime.Now, UserId = 5}
@@ -377,8 +423,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-70),
-                        Tags = new List<Tag> { GetTag("AI & Machine Learning"), GetTag("frontend") },
+                        Tags = new List<Tag> { GetTag("AI trends"), GetTag("frontend UI") },
                         UserId = 13,
+                        CategoryId = 8,
                         Comments = new List<Comment> {
                             new Comment {Text = "AI in web dev is such an exciting topic. Looking forward to using more AI tools.", PublishedOn = DateTime.Now, UserId = 7},
                             new Comment {Text = "AI tools can save so much time. Great insights in this post!", PublishedOn = DateTime.Now, UserId = 8}
@@ -393,8 +440,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-future.jpg",
                         PublishedOn = DateTime.Now.AddDays(-75),
-                        Tags = new List<Tag> { GetTag("cloud computing"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("backend logic") },
                         UserId = 14,
+                        CategoryId = 7,
                         Comments = new List<Comment> {
                             new Comment {Text = "Serverless is a great choice for certain use cases. Thanks for the insights!", PublishedOn = DateTime.Now, UserId = 9},
                             new Comment {Text = "I’ve been looking into serverless for my project, this helped a lot.", PublishedOn = DateTime.Now, UserId = 6}
@@ -409,8 +457,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-tools.jpg",
                         PublishedOn = DateTime.Now.AddDays(-80),
-                        Tags = new List<Tag> { GetTag("frontend"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("fullstack tools") },
                         UserId = 15,
+                        CategoryId = 3,
                         Comments = new List<Comment> {
                             new Comment {Text = "Real-time web apps are essential for interactive applications. Great post!", PublishedOn = DateTime.Now, UserId = 10},
                             new Comment {Text = "This is a fantastic explanation of WebSockets. I'll implement this soon.", PublishedOn = DateTime.Now, UserId = 8}
@@ -425,8 +474,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "game-guide.jpg",
                         PublishedOn = DateTime.Now.AddDays(-85),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("fullstack") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("fullstack tools") },
                         UserId = 6,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "CI/CD is essential for modern development. Thanks for the overview.", PublishedOn = DateTime.Now, UserId = 11},
                             new Comment {Text = "Setting up CI/CD has saved us so much time. Highly recommended.", PublishedOn = DateTime.Now, UserId = 12}
@@ -441,8 +491,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-90),
-                        Tags = new List<Tag> { GetTag("mobile development"), GetTag("frontend") },
+                        Tags = new List<Tag> { GetTag("mobile apps"), GetTag("frontend UI") },
                         UserId = 7,
+                        CategoryId = 6,
                         Comments = new List<Comment> {
                             new Comment {Text = "The mobile dev field is evolving so fast! Excited to try these tools.", PublishedOn = DateTime.Now, UserId = 13},
                             new Comment {Text = "Great insights into mobile development. Will definitely keep an eye on these trends.", PublishedOn = DateTime.Now, UserId = 14}
@@ -457,8 +508,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-frontend.jpg",
                         PublishedOn = DateTime.Now.AddDays(-95),
-                        Tags = new List<Tag> { GetTag("AI & Machine Learning"), GetTag("frontend") },
+                        Tags = new List<Tag> { GetTag("AI trends"), GetTag("web dev") },
                         UserId = 3,
+                        CategoryId = 8,
                         Comments = new List<Comment> {
                             new Comment {Text = "AI in web optimization is a fascinating concept. Looking forward to applying it.", PublishedOn = DateTime.Now, UserId = 5},
                             new Comment {Text = "Personalization with AI is definitely the future of web apps. Thanks for the insights!", PublishedOn = DateTime.Now, UserId = 4}
@@ -473,8 +525,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-evolution.jpg",
                         PublishedOn = DateTime.Now.AddDays(-100),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("fullstack") },
+                        Tags = new List<Tag> { GetTag("fullstack tools"), GetTag("backend logic") },
                         UserId = 1,
+                        CategoryId = 5,
                         Comments = new List<Comment> {
                             new Comment {Text = "Great post! Clean code is essential for long-term project success.", PublishedOn = DateTime.Now, UserId = 2},
                             new Comment {Text = "I’ve been working on improving my code quality. This post gives great tips!", PublishedOn = DateTime.Now, UserId = 3}
@@ -489,8 +542,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "frontend-trends.jpg",
                         PublishedOn = DateTime.Now.AddDays(-105),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("backend logic") },
                         UserId = 4,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "Scalability is so important! Thanks for the clear explanation.", PublishedOn = DateTime.Now, UserId = 5},
                             new Comment {Text = "I’m working on a project that needs to scale, this is very useful.", PublishedOn = DateTime.Now, UserId = 6}
@@ -505,8 +559,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "game-guide.jpg",
                         PublishedOn = DateTime.Now.AddDays(-110),
-                        Tags = new List<Tag> { GetTag("cybersecurity"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("security"), GetTag("web dev") },
                         UserId = 7,
+                        CategoryId = 9,
                         Comments = new List<Comment> {
                             new Comment {Text = "Security is often overlooked. Thanks for bringing this topic up.", PublishedOn = DateTime.Now, UserId = 8},
                             new Comment {Text = "The insights on securing web apps are incredibly useful. I’ll be more mindful of these best practices.", PublishedOn = DateTime.Now, UserId = 9}
@@ -521,8 +576,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-evolution.jpg",
                         PublishedOn = DateTime.Now.AddDays(-115),
-                        Tags = new List<Tag> { GetTag("cloud computing"), GetTag("backend") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("backend logic") },
                         UserId = 10,
+                        CategoryId = 7,
                         Comments = new List<Comment> {
                             new Comment {Text = "I’ve been working on a cloud-native project and this post helped me refine my approach.", PublishedOn = DateTime.Now, UserId = 11},
                             new Comment {Text = "Cloud-native development is definitely the future. Great post!", PublishedOn = DateTime.Now, UserId = 12}
@@ -537,8 +593,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "backend-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-120),
-                        Tags = new List<Tag> { GetTag("AI & Machine Learning"), GetTag("fullstack") },
+                        Tags = new List<Tag> { GetTag("AI trends"), GetTag("fullstack tools") },
                         UserId = 13,
+                        CategoryId = 8,
                         Comments = new List<Comment> {
                             new Comment {Text = "Machine learning is definitely a game-changer. Great introduction to the topic!", PublishedOn = DateTime.Now, UserId = 14},
                             new Comment {Text = "I'm excited to dive into machine learning after reading this. Thanks for the insights.", PublishedOn = DateTime.Now, UserId = 15}
@@ -553,8 +610,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "fullstack-tools.jpg",
                         PublishedOn = DateTime.Now.AddDays(-100),
-                        Tags = new List<Tag> { GetTag("AI & Machine Learning"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("AI trends"), GetTag("cloud tech") },
                         UserId = 12,
+                        CategoryId = 8,
                         Comments = new List<Comment> {
                             new Comment {Text = "Quantum computing is fascinating! Can't wait to see how it evolves.", PublishedOn = DateTime.Now, UserId = 13},
                             new Comment {Text = "Great overview of the topic. Definitely an area to watch in the coming years.", PublishedOn = DateTime.Now, UserId = 14}
@@ -569,8 +627,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "web-evolution.jpg",
                         PublishedOn = DateTime.Now.AddDays(-90),
-                        Tags = new List<Tag> { GetTag("backend"), GetTag("cloud computing") },
+                        Tags = new List<Tag> { GetTag("web dev"), GetTag("cloud tech") },
                         UserId = 10,
+                        CategoryId = 2,
                         Comments = new List<Comment> {
                             new Comment {Text = "Microservices have truly transformed how we think about scalability. Great post!", PublishedOn = DateTime.Now, UserId = 11},
                             new Comment {Text = "Helpful insights. This will be very useful for my next project.", PublishedOn = DateTime.Now, UserId = 12}
@@ -585,8 +644,9 @@ namespace BlogApp.Data.Concrete.EfCore{
                         IsActive = true,
                         Image = "game-dev.jpg",
                         PublishedOn = DateTime.Now.AddDays(-80),
-                        Tags = new List<Tag> { GetTag("AI & Machine Learning"), GetTag("cybersecurity") },
+                        Tags = new List<Tag> { GetTag("cloud tech"), GetTag("security") },
                         UserId = 9,
+                        CategoryId = 8,
                         Comments = new List<Comment> {
                             new Comment {Text = "Blockchain has so much potential beyond crypto. Great insights on its applications!", PublishedOn = DateTime.Now, UserId = 10},
                             new Comment {Text = "Looking forward to exploring blockchain in more depth. Thanks for the resources!", PublishedOn = DateTime.Now, UserId = 11}

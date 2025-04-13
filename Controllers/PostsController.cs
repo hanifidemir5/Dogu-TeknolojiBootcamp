@@ -254,8 +254,6 @@ namespace BlogApp.Controllers{
                 }
 
                 if (User.FindFirstValue(ClaimTypes.Role) == "admin"){
-                    Console.WriteLine("Role: " + User.FindFirstValue(ClaimTypes.Role));
-                    Console.WriteLine("IsActive: " + model.IsActive);
                     entityToUpdate.IsActive = model.IsActive;
                 }
 

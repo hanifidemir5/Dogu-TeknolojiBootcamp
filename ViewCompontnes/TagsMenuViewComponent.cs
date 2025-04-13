@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.ViewComponents{
     public class TagsMenuViewComponent:ViewComponent{
-        private ITagRepository _tagRepository;
+        private readonly ITagRepository _tagRepository;
         public TagsMenuViewComponent(ITagRepository tagRepository){
             _tagRepository = tagRepository;
         }
