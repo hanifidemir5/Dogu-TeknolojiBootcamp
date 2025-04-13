@@ -38,14 +38,14 @@
                         <div class="post-body">
                             <h5><a href="/blog/@post.Url" class="post-link">@post.Title</a></h5>
                             <p class="post-desc">@post.Description</p>
-                            <div class="tags-container">
-                                @if (Model.PostTags?.ContainsKey(post.PostId) == true)
-                                {
-                                    foreach (var tag in Model.PostTags[post.PostId].Take(2))
-                                    {
-                                        <a href="/blog/tag/@tag.Url" class="tag text-bg-@tag.Color.ToString().ToLower()">@tag.Text</a>
+                            <div>
+                                <div class="tags-container">
+                                    @if (Model.PostTags?.ContainsKey(post.PostId) == true){
+                                        foreach (var tag in Model.PostTags[post.PostId].Take(2)){
+                                            <a href="/blog/tag/@tag.Url" class="tag text-bg-@tag.Color.ToString().ToLower()">@tag.Text</a>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>

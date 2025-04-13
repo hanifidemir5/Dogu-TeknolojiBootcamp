@@ -17,6 +17,14 @@ namespace BlogApp.Data.Concrete.EfCore
 
         public IQueryable<Post> Posts => _context.Posts.Include(p => p.Tags);
 
+        public async Task<IEnumerable<Post>> GetPostsByCategoryAsync(string categoryUrl)
+        {
+            return await _context.Posts
+                .Include(p => p.Category) // Make sure to include the Category entity
+                .Where(p => p.Category.Url == categoryUrl) // Filter by category URL
+                .ToListAsync();
+        }
+
         public async Task CreatePostAsync(Post post)
         {
             await _context.Posts.AddAsync(post);

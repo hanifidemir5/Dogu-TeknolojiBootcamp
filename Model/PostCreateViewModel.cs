@@ -9,7 +9,7 @@ namespace BlogApp.Models{
         [Required]
         public string? Title { get; set; }
 
-        [Required, MaxLength(32)]
+        [Required, MaxLength(100)]
         public string? Description { get; set; }
 
         [Required]
@@ -37,7 +37,7 @@ namespace BlogApp.Models{
 
     public class PostEditViewModel : PostBaseViewModel
     {
-        public IFormFile? ImageFile { get; set; } // Optional on edit
+        public IFormFile? ImageFile { get; set; }
     }
 
 }

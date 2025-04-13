@@ -14,24 +14,36 @@ namespace BlogApp.Controllers{
     public class PostsController : Controller{
         private IPostRepository _postRepository;
         private ICommentRepository _commentRepository;
-        private ITagRepository _tagRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository, ITagRepository tagRepository){
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository, ITagRepository tagRepository, ICategoryRepository categoryRepository){
             _postRepository = postRepository;
             _commentRepository = commentRepository;
             _tagRepository = tagRepository;
+            _categoryRepository = categoryRepository;
         }
 
         // GET: Index
-        public async Task<IActionResult> Index(string tag, int page = 1, int pageSize = 12)
+        public async Task<IActionResult> Index(string tag, string category, int page = 1, int pageSize = 12)
         {
             var postsQuery = _postRepository.Posts
                 .Include(p => p.Tags)
+                .Include(p => p.Category)
                 .Where(x => x.IsActive);
 
+            var categoryObject = !string.IsNullOrEmpty(category) 
+                    ? await _categoryRepository.Categories.Where(x => x.Url == category).FirstOrDefaultAsync() 
+                    : null;
+                    
             if (!string.IsNullOrEmpty(tag))
             {
                 postsQuery = postsQuery.Where(x => x.Tags.Any(t => t.Url == tag));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                postsQuery = postsQuery.Where(x => x.Category.Url == category);
             }
 
             var totalPosts = await postsQuery.CountAsync();
@@ -52,17 +64,18 @@ namespace BlogApp.Controllers{
                 Posts = postList,
                 PostTags = postTags,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(totalPosts / (double)pageSize)
+                TotalPages = (int)Math.Ceiling(totalPosts / (double)pageSize),
+                CurrentCategory = categoryObject
             };
 
             return View(viewModel);
         }
 
-
         // GET: Details
         public async Task<IActionResult> Details(string url){
             var post = await _postRepository.Posts
                             .Include(x => x.Tags)
+                            .Include(x => x.Category)
                             .Include(x => x.Comments)
                             .ThenInclude(x => x.User)
                             .FirstOrDefaultAsync(p => p.Url == url);
@@ -205,36 +218,37 @@ namespace BlogApp.Controllers{
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(PostEditViewModel model){
-            if (ModelState.IsValid){
-                var entityToUpdate = await _postRepository.Posts
-                .Include(p => p.Tags).FirstOrDefaultAsync(p => p.PostId == model.PostId);
+            var postToUpdate = await _postRepository.Posts
+            .Include(p => p.Tags).FirstOrDefaultAsync(p => p.PostId == model.PostId);
 
-                if (entityToUpdate == null)
+            if (ModelState.IsValid){
+
+                if (postToUpdate == null)
                 {
                     return NotFound();
                 }
 
-                entityToUpdate.Title = model.Title;
-                entityToUpdate.Description = model.Description;
-                entityToUpdate.Content = model.Content;
-                entityToUpdate.Url = model.Url;
-                var currentTagIds = entityToUpdate.Tags.Select(t => t.TagId).ToList();
+                postToUpdate.Title = model.Title;
+                postToUpdate.Description = model.Description;
+                postToUpdate.Content = model.Content;
+                postToUpdate.Url = model.Url;
+                var currentTagIds = postToUpdate.Tags.Select(t => t.TagId).ToList();
 
                 var selectedTagIds = model.SelectedTagIds;
 
                 if (!currentTagIds.SequenceEqual(selectedTagIds))
                 {
-                    entityToUpdate.Tags.Clear();
+                    postToUpdate.Tags.Clear();
 
                     var selectedTags = await _tagRepository.GetTagsByIds(selectedTagIds).ToListAsync();
-                    entityToUpdate.Tags.AddRange(selectedTags);
+                    postToUpdate.Tags.AddRange(selectedTags);
                 }
 
                 if (model.ImageFile != null)
                 {
-                    if (!string.IsNullOrEmpty(entityToUpdate.Image))
+                    if (!string.IsNullOrEmpty(postToUpdate.Image))
                     {
-                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts", entityToUpdate.Image);
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/posts", postToUpdate.Image);
                         if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
@@ -250,20 +264,34 @@ namespace BlogApp.Controllers{
                         await model.ImageFile.CopyToAsync(stream);
                     }
 
-                    entityToUpdate.Image = newFileName;
+                    postToUpdate.Image = newFileName;
                 }
 
                 if (User.FindFirstValue(ClaimTypes.Role) == "admin"){
-                    entityToUpdate.IsActive = model.IsActive;
+                    postToUpdate.IsActive = model.IsActive;
                 }
 
-                await _postRepository.EditPostAsync(entityToUpdate);
+                await _postRepository.EditPostAsync(postToUpdate);
 
                 return RedirectToAction("List");
             }
             else{
                 Console.WriteLine("Model state is invalid.");
+                var viewModel = new PostEditViewModel{
+                    PostId = postToUpdate.PostId,
+                    Title = postToUpdate.Title,
+                    Description = postToUpdate.Description,
+                    Content = postToUpdate.Content,
+                    Url = postToUpdate.Url,
+                    ImageFile = null, 
+                    Image = postToUpdate.Image, 
+                    IsActive = postToUpdate.IsActive,
+                    SelectedTagIds = postToUpdate.Tags.Select(t => t.TagId).ToList(),
+                    AllTags = await _tagRepository.Tags.ToListAsync()
+                };
+                return View(viewModel);
             }
+
             return View(model);
         }
 

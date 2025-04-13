@@ -7,6 +7,7 @@ namespace BlogApp.Models{
         public Dictionary<int, List<Tag>>? PostTags { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
+        public Category CurrentCategory { get; set; }
     }
 
 }

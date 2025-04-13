@@ -7,6 +7,7 @@
   justify-content: flex-start;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 2rem;
 }
 
 .index-main-container {
@@ -221,6 +222,8 @@
 }
 
 .full-width-component {
+  margin-left: calc(-1rem);
+  margin-top: calc(-1rem);
   width: 100vw;
   box-sizing: border-box;
 }
@@ -228,6 +231,9 @@
 @media (min-width: 576px) {
   .side-content .card {
     width: 100%;
+  }
+  .side-content {
+    padding: 0rem;
   }
 }
 
@@ -246,11 +252,14 @@
     margin-left: calc(-8rem);
     margin-top: calc(-3rem);
   }
+}
+
+@media (min-width: 1440px) {
   .index-main-container {
     flex-wrap: nowrap;
   }
   .side-content {
     max-width: 300px;
-    margin: 1rem;
+    margin: 0rem 1rem;
   }
 }

@@ -6,6 +6,6 @@ namespace BlogApp.Data.Abstract{
         Task CreatePostAsync(Post post);
         Task EditPostAsync(Post post);
         void DeletePost(Post post);
-
+        Task<IEnumerable<Post>> GetPostsByCategoryAsync(string categoryUrl);
     }
 }
