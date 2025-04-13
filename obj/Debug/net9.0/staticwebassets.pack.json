@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\css\\Post\\create.css"
     },
     {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\css\\Post\\details.css",
+      "PackagePath": "staticwebassets\\css\\Post\\details.css"
+    },
+    {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\css\\Post\\index.css",
       "PackagePath": "staticwebassets\\css\\Post\\index.css"
     },
@@ -91,6 +95,10 @@
     {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\5a240dea-6513-41b4-8bde-7e2c5b6d4f83.jpeg",
       "PackagePath": "staticwebassets\\img\\users\\5a240dea-6513-41b4-8bde-7e2c5b6d4f83.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\b388eadc-2501-4a0d-badd-0ce20b7befa3.webp",
+      "PackagePath": "staticwebassets\\img\\users\\b388eadc-2501-4a0d-badd-0ce20b7befa3.webp"
     },
     {
       "Id": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\wwwroot\\img\\users\\billgates.jpg",

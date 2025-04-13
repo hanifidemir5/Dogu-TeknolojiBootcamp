@@ -1,6 +1,5 @@
 .side-content {
   width: 100%;
-  margin: 7rem 2rem;
   word-break: break-word;
   line-height: 2;
   display: flex;
@@ -29,7 +28,6 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 1rem;
   width: 100%;
 }
 
@@ -58,6 +56,7 @@
   transition: all 0.4s ease;
   width: 100%;
   font-size: 1.1rem;
+  text-align: justify;
   word-break: break-all;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -223,15 +222,12 @@
 
 .full-width-component {
   width: 100vw;
-  margin-left: calc(-2rem);
-  margin-top: calc(-1rem);
   box-sizing: border-box;
 }
 
 @media (min-width: 576px) {
-  .full-width-component {
-    margin-left: calc(-4rem);
-    margin-top: calc(-1.5rem);
+  .side-content .card {
+    width: 100%;
   }
 }
 
@@ -239,6 +235,9 @@
   .full-width-component {
     margin-left: calc(-6rem);
     margin-top: calc(-2rem);
+  }
+  .post-content {
+    margin: 1rem;
   }
 }
 
@@ -252,5 +251,6 @@
   }
   .side-content {
     max-width: 300px;
+    margin: 1rem;
   }
 }

@@ -145,12 +145,6 @@ input:-webkit-autofill:active {
   font-size: 1rem !important;
 }
 
-@media (min-width: 576px) and (max-width: 991px) {
-  .content-body {
-    padding: 1.5rem 4rem;
-  }
-}
-
 @media (min-width: 992px) {
   .content-body {
     padding: 2rem 6rem;

@@ -1,7 +1,7 @@
 @model List<Tag>
 
 <div class="d-flex flex-column gap-2 justify-content-center align-items-center w-100">
-    <ul class="list-inline d-flex flex-wrap gap-2">
+    <ul class="list-inline d-flex flex-wrap gap-2 justify-content-center">
         @foreach(var tag in Model){
             <li class="list-inline-item">
                 <a href="/blog/tag/@tag.Url" class="tag-button">@tag.Text</a>

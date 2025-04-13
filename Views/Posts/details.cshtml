@@ -1,21 +1,37 @@
 @model Post
 
+@{
+    ViewData["Title"] = "Post Details";
+    ViewData["Description"] = "Details of the selected post.";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/css/post/details.css">
+}
+
 <div class="row">
     <vc:tags-menu></vc:tags-menu>
+    
     <div class="col-lg-8">
-        <div class="bg-white p-4">
+        <div class="bg-white p-4" style="border-radius: 2rem;">
             <h1 class="h4 mb-4">@Model.Title</h1>
-            <div class="tags">
+            
+            <div class="tags mb-3">
                 @foreach (var tag in Model.Tags)
                 {
                     <a href="/blog/tag/@tag.Url" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">@tag.Text</a>
                 }
             </div>
-            <img src="~/img/posts/@Model.Image" alt="" style="height: 400px; width: 600px;object-fit: contain;" class="img-fluid rounded">
-            <div>@Model.Content</div>
+            
+            <img src="~/img/posts/@Model.Image" alt="Post Image" class="img-fluid rounded" style="height: 400px; width: 100%; object-fit: cover;">
+            
+            <div class="post-content mt-3">
+                @Model.Content
+            </div>
         </div>
-        <div class="bg-white mt-3">
-            <div class="card border-0">
+
+        <div class="bg-white mt-3"  style="border-radius: 1rem;overflow: hidden;">
+            <div class="card" style="border-radius: 1rem;overflow: hidden;">
                 <div class="card-header pb-0">
                     <h4><span id="commentCount">@Model.Comments.Count() comments</span></h4>
                 </div>
@@ -23,7 +39,7 @@
                     <div id="comments">
                         @foreach(var comment in Model.Comments){
                             <div class="md-4 d-flex">
-                                <img src="~/img/users/@comment.User.Image" alt="" class="avatar rounded-circle float-start me-3 object-fit-contain">
+                                <img src="~/img/users/@comment.User.Image" alt="User Avatar" class="avatar rounded-circle float-start me-3 object-fit-contain">
                                 <div class="mb-2">
                                     <h6>@comment.User.UserName</h6>
                                     <span>@comment.PublishedOn</span>
@@ -32,33 +48,34 @@
                             </div>
                         }
                     </div>
+                    
                     @if(User.Identity!.IsAuthenticated){
-                        <hr class="my-4">
+                        <hr class="my-4" >
                         <div>
-                            <h5 class="mb3">Yorum Ekle</h5>
+                            <h5 class="mb-3">Add a Comment</h5>
                             <form action="/post/AddComment" id="commentForm" method="post">
                                 <input type="hidden" name="PostId" value="@Model.PostId" />
                                 <div class="mb-3">
-                                    <label for="Text" class="form-label">Yorum</label>
-                                    <textarea class="form-control" name="Text" id="Text" rows="3"></textarea>
+                                    <label for="Text" class="form-label">Comment</label>
+                                    <textarea class="form-control" name="Text" id="Text" rows="3" required></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <button type="submit" id="btnYorumKayit" class="btn btn-primary">Yorum Yap</button>
+                                <div class="mb-3 d-flex justify-content-end">
+                                    <button type="submit" id="btnYorumKayit" class="button-success">Post Comment</button>
                                 </div>
                             </form>
                         </div>
-                    }else{
-                        <p>Yorum için uygulamaya giriş yapmalısız <a href="/users/login">Login</a></p>
+                    } else {
+                        <p>To comment, please <a href="/users/login">login</a>.</p>
                     }
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 ">
-    <vc:new-posts></vc:new-posts>
+    
+    <div class="col-lg-4">
+        <vc:new-posts></vc:new-posts>
     </div>
 </div>
-
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -78,19 +95,18 @@
 
                         $("#comments").append(`
                             <div class="my-4 d-flex">
-                                <img src="~/img/users/${yorum.avatar}" class="avatar rounded-circle float-start me-3" alt="">
-                            <div class="mb-2">
-                            <h6>${yorum.username}</h6>
-                            <span>${date.toLocaleDateString()}</span>
-                            <p>${yorum.Text}</p>
+                                <img src="~/img/users/${yorum.avatar}" class="avatar rounded-circle float-start me-3" alt="User Avatar">
+                                <div class="mb-2">
+                                    <h6>${yorum.username}</h6>
+                                    <span>${date.toLocaleDateString()}</span>
+                                    <p>${yorum.Text}</p>
+                                </div>
                             </div>
-                            </div>
-                            `);
-                            
-                            $("#Text").val('');
-
-                            var adet = parseInt($("#commentCount").text());
-                            $("#commentCount").text(adet + 1);
+                        `);
+                        
+                        $("#Text").val('');
+                        var adet = parseInt($("#commentCount").text());
+                        $("#commentCount").text(adet + 1);
                     }
                 });
                 return false;
