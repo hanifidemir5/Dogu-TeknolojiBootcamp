@@ -16,14 +16,20 @@
         <div class="bg-white p-4" style="border-radius: 2rem;width: 100%;">
             <h1 class="h4 mb-4">@Model.Title</h1>
             
-            <div class="tags mb-3 d-flex flex-wrap justify-content-between align-items-center">
-                <div>
-                    @foreach (var tag in Model.Tags)
-                    {
-                        <a href="/blog/tag/@tag.Url" class="badge text-bg-@tag.Color.ToString().ToLower() mb-2 fw-bold">@tag.Text</a>
-                    }
+            <div class="tags mb-3 d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-wrap  flex-column">
+                    <div class="d-flex align-items-center gap-1">
+                        <h6 class="m-0">Author:</h6><p class="m-0">@Model.User.Name</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-1">
+                        <h6>Tags:</h6>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <a href="/blog/tag/@tag.Url" class="badge text-bg-@tag.Color.ToString().ToLower() mb-2 fw-bold">@tag.Text</a>
+                        }
+                    </div>
                 </div>
-                <div class="d-flex align-items-center justify-content-end w-100">
+                <div class="d-flex align-items-center justify-content-end">
                     <a href="/posts?category=@Model.Category.Url" class="button-link button-primary align-self-end">@Model.Category.Name</a>
                 </div>
             </div>
@@ -43,9 +49,9 @@
                 <div class="card-body">
                     <div id="comments">
                         @foreach(var comment in Model.Comments){
-                            <div class="md-4 d-flex">
+                            <div class="mt-2 mr-2 d-flex w-100 flex-wrap p-2">
                                 <img src="~/img/users/@comment.User.Image" alt="User Avatar" class="avatar rounded-circle float-start me-3 object-fit-contain">
-                                <div class="mb-2">
+                                <div class="comment-body">
                                     <h6>@comment.User.UserName</h6>
                                     <span>@comment.PublishedOn</span>
                                     <p>@comment.Text</p>
@@ -95,23 +101,39 @@
                         PostId: $('input[name="PostId"]').val(),
                         Text: $('#Text').val(),
                     },
-                    success: function (yorum) {
-                        var date = new Date(yorum.publishedOn);
+                    success: function (comment) {
+                        console.log(comment)
+                        if (comment && comment.username && comment.text && comment.publishedOn  && comment.avatar) {
+                            var date = new Date(comment.publishedOn );
+                            const pad = (n) => n.toString().padStart(2, '0');
 
-                        $("#comments").append(`
-                            <div class="my-4 d-flex">
-                                <img src="~/img/users/${yorum.avatar}" class="avatar rounded-circle float-start me-3" alt="User Avatar">
-                                <div class="mb-2">
-                                    <h6>${yorum.username}</h6>
-                                    <span>${date.toLocaleDateString()}</span>
-                                    <p>${yorum.Text}</p>
+                            const day = pad(date.getDate());
+                            const month = pad(date.getMonth() + 1);
+                            const year = date.getFullYear();
+                            const hours = pad(date.getHours());
+                            const minutes = pad(date.getMinutes());
+                            const seconds = pad(date.getSeconds());
+
+                            $("#comments").append(`
+                                <div class="mt-2 mr-2 d-flex w-100 flex-wrap p-2">
+                                    <img src="/img/users/${comment.avatar}" class="avatar rounded-circle float-start me-3 object-fit-contain" alt="User Avatar">
+                                    <div class="comment-body">
+                                        <h6>${comment.username}</h6>
+                                        <span>${day}.${month}.${year} ${hours}:${minutes}:${seconds}</span>
+                                        <p>${comment.text}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        `);
-                        
-                        $("#Text").val('');
-                        var adet = parseInt($("#commentCount").text());
-                        $("#commentCount").text(adet + 1);
+                            `);
+                            
+                            $("#Text").val('');
+                            var count = parseInt($("#commentCount").text());
+                            $("#commentCount").text(count + 1);
+                        } else {
+                            console.log("Invalid response data:", comment);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error during AJAX request:", error);
                     }
                 });
                 return false;
