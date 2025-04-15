@@ -43,6 +43,7 @@ namespace BlogApp.Data.Concrete.EfCore{
                 );
                 context.SaveChanges();
             }
+
             var tags = context.Tags.ToList();
             Tag GetTag(string text) =>
             tags.FirstOrDefault(t => t.Text == text)
@@ -93,7 +94,7 @@ namespace BlogApp.Data.Concrete.EfCore{
                     new User 
                     { 
                         UserName = "sundarpichai1", 
-                        Image = "sundarpichai.jpg", 
+                        Image = "sundarpichai.jpeg", 
                         Name = "Sundar Pichai", 
                         Email = "sundar1@google.com", 
                         Password = "google@2025" 

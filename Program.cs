@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BlogContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("sql_connection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddScoped<IPostRepository, EfPostRepository>();

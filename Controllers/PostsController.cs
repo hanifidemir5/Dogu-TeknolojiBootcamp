@@ -75,6 +75,7 @@ namespace BlogApp.Controllers{
         public async Task<IActionResult> Details(string url){
             var post = await _postRepository.Posts
                             .Include(x => x.Tags)
+                            .Include(x => x.User)
                             .Include(x => x.Category)
                             .Include(x => x.Comments)
                             .ThenInclude(x => x.User)
@@ -105,7 +106,7 @@ namespace BlogApp.Controllers{
             return Json(new {
                 username,
                 Text,
-                PublishedOn = entity.PublishedOn.ToString(),
+                PublishedOn = entity.PublishedOn,
                 avatar
             });
         }
