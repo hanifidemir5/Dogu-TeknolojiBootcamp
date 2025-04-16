@@ -11,6 +11,14 @@ namespace BlogApp.Models{
 
         [Required, MaxLength(100)]
         public string? Description { get; set; }
+        
+             
+        [Display(Name = "Categories")]
+        public List<Category> AllCategories { get; set; } = new();
+
+        [Required]
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
 
         [Required]
         public string? Content { get; set; }
@@ -22,8 +30,10 @@ namespace BlogApp.Models{
 
         public bool IsActive { get; set; }
 
+        [Required(ErrorMessage = "At least one tag must be selected.")]
+        [MinLength(1, ErrorMessage = "At least one tag must be selected.")]
         public List<int> SelectedTagIds { get; set; } = new();
-        
+   
         [Display(Name = "Tags")]
         public List<Tag> AllTags { get; set; } = new();
     }

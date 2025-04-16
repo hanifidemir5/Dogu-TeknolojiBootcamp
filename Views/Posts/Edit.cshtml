@@ -32,7 +32,7 @@
                     name="ImageFile"
                     style="display:none;"
                     accept="image/*" 
-                    onchange="previewImage(event)" />
+                    onchange="previewImage(event)"/>
             }
         </div>
         <div class="form-group">
@@ -41,19 +41,38 @@
                     <label asp-for="Title" class="form-label"></label>
                     @if(User.IsInRole("admin"))
                     {
-                        <input asp-for="Title" title="@Model.Title" class="form-control" disabled />
+                        <input asp-for="Title" title="@Model.Title" class="form-control" readonly />
                     }
                     else
                     {
-                        <input asp-for="Title" title="@Model.Title" class="form-control" />
+                        <input asp-for="Title" title="@Model.Title" class="form-control" required/>
                     }
                     <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label"></label>
+                    @if(User.IsInRole("admin"))
+                    {
+                        <input type="hidden" asp-for="CategoryId" />
+                        <input class="form-control" value="@Model.AllCategories.FirstOrDefault(c => c.CategoryId == Model.CategoryId)?.Name" readonly />
+                    }
+                    else
+                    {    
+                        <select asp-for="CategoryId" class="form-control" required>
+                            <option value="">Select a category</option>
+                            @foreach (var category in Model.AllCategories)
+                            {
+                                <option value="@category.CategoryId">@category.Name</option>
+                            }
+                        </select>
+                    }
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Description" class="form-label"></label>
                     @if(User.IsInRole("admin"))
                     {
-                        <input asp-for="Description" title="@Model.Description" class="form-control" disabled/>
+                        <input asp-for="Description" title="@Model.Description" class="form-control" readonly/>
                     }
                     else
                     {
@@ -65,7 +84,7 @@
                     <label asp-for="Url" class="form-label"></label>
                     @if(User.IsInRole("admin"))
                     {
-                        <input asp-for="Url" title="@Model.Url" class="form-control" disabled/>
+                        <input asp-for="Url" title="@Model.Url" class="form-control" readonly/>
                     }
                     else
                     {
@@ -77,7 +96,7 @@
                     <label asp-for="Content" class="form-label"></label>
                     @if(User.IsInRole("admin"))
                     {
-                        <textarea asp-for="Content" title="@Model.Content" class="form-control" disabled></textarea>
+                        <textarea asp-for="Content" title="@Model.Content" class="form-control" readonly></textarea>
                     }
                     else
                     {
@@ -105,7 +124,7 @@
                         <div class="form-check">
                             @if(User.IsInRole("admin"))
                             {
-                                <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId"  @(Model.SelectedTagIds.Contains(tag.TagId) ? "checked" : "") disabled />
+                                <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId"  @(Model.SelectedTagIds.Contains(tag.TagId) ? "checked" : "") readonly />
                             }
                             else
                             {
@@ -114,6 +133,7 @@
                             <label class="form-check-label">@tag.Text</label>
                         </div>
                     }
+                    <span asp-validation-for="SelectedTagIds" class="text-danger"></span>
                 </div>
             </div>
         </div>

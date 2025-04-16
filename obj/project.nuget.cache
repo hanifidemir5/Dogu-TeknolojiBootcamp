@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uq3UmbSl4rs=",
+  "dgSpecHash": "Jvttgw8CDkM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\BlogApp.csproj",
+  "projectFilePath": "C:\\xampp\\htdocs\\Dogu-TeknolojiBootcamp\\BlogApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\teyme\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\teyme\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

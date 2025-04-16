@@ -5019,11 +5019,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\BlogApp.csproj",
+      "projectUniqueName": "C:\\xampp\\htdocs\\Dogu-TeknolojiBootcamp\\BlogApp.csproj",
       "projectName": "BlogApp",
-      "projectPath": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\BlogApp.csproj",
+      "projectPath": "C:\\xampp\\htdocs\\Dogu-TeknolojiBootcamp\\BlogApp.csproj",
       "packagesPath": "C:\\Users\\teyme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\teyme\\OneDrive\\Masaüstü\\Doğuş teknoloji eğitim\\blogapp\\obj\\",
+      "outputPath": "C:\\xampp\\htdocs\\Dogu-TeknolojiBootcamp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

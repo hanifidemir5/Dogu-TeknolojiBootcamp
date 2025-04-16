@@ -58,7 +58,8 @@ namespace BlogApp.Controllers{
                         Password = model.Password,
                         Image = fileName,
                     });
-                return RedirectToAction("Login");
+                    
+                    return RedirectToAction("Login");
                 }else{
                     ModelState.AddModelError("","Username ya da Email kullanımda.");
                 }

@@ -9,12 +9,24 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <img id="postImage" src="~/img/default-post.jpeg" alt="Profile Image" class="post-image-preview" style="cursor: pointer;"/>
         <input type="file" id="imageInput" name="ImageFile"style="display:none; "accept="image/*" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
         <div class="form-group">
             <div class="post-info">
                 <div class="mb-3">
                     <label asp-for="Title" class="form-label"></label>
                     <input asp-for="Title" placeholder="Enter your title" required>
                     <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label"></label>
+                    <select asp-for="CategoryId" class="form-control" required>
+                        <option value="">Select a category</option>
+                        @foreach (var category in Model.AllCategories)
+                        {
+                            <option value="@category.CategoryId">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Description" class="form-label"></label>
@@ -28,7 +40,7 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="Content" class="form-label"></label>
-                    <textarea asp-for="Content" placeholder="Enter your content" style="width: 100%; border-radius:0.5rem; min-height:100px; text-indent:0.25rem"></textarea>
+                    <textarea asp-for="Content" placeholder="Enter your content" style="width: 100%; border-radius:0.5rem; min-height:100px; text-indent:0.25rem" required></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
             </div>
@@ -38,7 +50,7 @@
                     @foreach (var tag in Model.AllTags)
                     {
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId" />
+                            <input type="checkbox" class="form-check-input" name="SelectedTagIds" value="@tag.TagId" @(Model.SelectedTagIds.Contains(tag.TagId) ? "checked" : "") />
                             <label class="form-check-label">@tag.Text</label>
                         </div>
                     }

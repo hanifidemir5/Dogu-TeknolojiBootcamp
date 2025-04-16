@@ -115,8 +115,11 @@ namespace BlogApp.Controllers{
         [Authorize]
         public async Task<IActionResult> Create(){
             var allTags = await _tagRepository.Tags.ToListAsync();
+            var allCategories = await _categoryRepository.Categories.ToListAsync();
+            
             var viewModel = new PostCreateViewModel{
-                AllTags = allTags
+                AllTags = allTags,
+                AllCategories = allCategories
             };
             return View(viewModel);
         }
@@ -148,7 +151,8 @@ namespace BlogApp.Controllers{
                     PublishedOn = DateTime.Now,
                     Description = model.Description,
                     Image = fileName,
-                    IsActive = false
+                    IsActive = false,
+                    CategoryId = model.CategoryId,
                 };
 
                 await _postRepository.CreatePostAsync(post);
@@ -166,6 +170,7 @@ namespace BlogApp.Controllers{
             }
 
             model.AllTags = _tagRepository.Tags.ToList();
+            model.AllCategories = _categoryRepository.Categories.ToList();
             return View(model);
         }
 
@@ -208,6 +213,8 @@ namespace BlogApp.Controllers{
                 ImageFile = null, 
                 Image = post.Image, 
                 IsActive = post.IsActive,
+                CategoryId = post.CategoryId,
+                AllCategories = _categoryRepository.Categories.ToList(),
                 SelectedTagIds = post.Tags.Select(t => t.TagId).ToList(),
                 AllTags = await _tagRepository.Tags.ToListAsync()
             };
@@ -233,6 +240,7 @@ namespace BlogApp.Controllers{
                 postToUpdate.Description = model.Description;
                 postToUpdate.Content = model.Content;
                 postToUpdate.Url = model.Url;
+                postToUpdate.Category = _categoryRepository.Categories.FirstOrDefault(c => c.CategoryId == model.CategoryId);
                 var currentTagIds = postToUpdate.Tags.Select(t => t.TagId).ToList();
 
                 var selectedTagIds = model.SelectedTagIds;
@@ -287,6 +295,7 @@ namespace BlogApp.Controllers{
                     ImageFile = null, 
                     Image = postToUpdate.Image, 
                     IsActive = postToUpdate.IsActive,
+                    AllCategories = _categoryRepository.Categories.ToList(),
                     SelectedTagIds = postToUpdate.Tags.Select(t => t.TagId).ToList(),
                     AllTags = await _tagRepository.Tags.ToListAsync()
                 };
